@@ -4,8 +4,8 @@ const conn = require('../connection')
 const LineItems = conn.define('lineItems', {
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 1,
     allowNull: false,
+    defaultValue: 1,
     validate: {
       isInt: true
     }
