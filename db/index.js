@@ -1,7 +1,21 @@
 const conn = require('./connection')
 
-const Products = require('./models/Products')
 const Categories = require('./models/Categories')
+const Images = require('./models/Images')
+const LineItems = require('./models/LineItems')
+const Orders = require('./models/Orders')
+const Products = require('./models/Products')
+const Reviews = require('./models/Reviews')
+const Users = require('./models/Users')
+
+LineItems.belongsTo(Products)
+
+Orders.hasMany(LineItems)
+
+Products.hasMany(Reviews)
+
+Users.hasMany(Reviews)
+Users.hasMany(Orders)
 
 Products.belongsToMany(Categories, { through: 'ProductsCategories' })
 Categories.belongsToMany(Products, { through: 'ProductsCategories' })
@@ -15,6 +29,6 @@ const syncAndSeed = () => {
 
 module.exports = {
   models: {
-    Products, Categories
+    Categories, Images, LineItems, Orders, Products, Reviews, Users
   }, syncAndSeed
 }
