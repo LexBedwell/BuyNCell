@@ -61,8 +61,8 @@ const Orders = conn.define('order', {
     allowNull: false,
     validate: {
       len: {
-        args: [2, 20],
-        msg: 'Minimum of ten characters required.'
+        args: [5, 10],
+        msg: 'Minimum of five characters required.'
       }
     }
   }
