@@ -18,7 +18,7 @@ const Products = conn.define('products', {
     validate: {
       len: {
         args: [4, 40],
-        msg: 'Minimum of three characters required.'
+        msg: 'Minimum of four characters required.'
       }
     }
   },

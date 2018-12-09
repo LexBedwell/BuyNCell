@@ -7,7 +7,7 @@ const Reviews = conn.define('reviews', {
     allowNull: false,
     validate: {
       len: {
-        args: [10, 17000],
+        args: [10, 2000],
         msg: 'Minimum of 10 characters required'
       }
     },
