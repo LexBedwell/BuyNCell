@@ -6,7 +6,6 @@ const Categories = require('./models/Categories')
 Products.belongsToMany(Categories, { through: 'ProductsCategories' })
 Categories.belongsToMany(Products, { through: 'ProductsCategories' })
 
-
 const syncAndSeed = () => {
   conn.sync({force: true})
     .then( () => Products.create({title: 'Regular Celery', description: 'Pretty regular stuff', price: 1.00, quantity: 99}))
