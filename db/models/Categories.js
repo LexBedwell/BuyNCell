@@ -8,7 +8,7 @@ const Categories = conn.define('categories', {
     validate: {
       len: {
         args: [3, 30],
-        msg: 'Minimum of three characters required.'
+        msg: 'Must be between three to thirty characters.'
       }
     }
   }

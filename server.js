@@ -9,8 +9,12 @@ app.use(express.static('./client/public'))
 
 app.use('/api', require('./api'))
 
-syncAndSeed()
+app.use((err, req, res, next) => {
+  res.status(500).send({ error: err.message })
+})
 
 app.listen(PORT, () => {
   console.log('Now listening on', PORT)
 })
+
+syncAndSeed()
