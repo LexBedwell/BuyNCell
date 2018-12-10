@@ -16,7 +16,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [6, 20],
-        msg: 'Must be between six and twenty characters.'
+        msg: 'Must be between six to twenty characters.'
       }
     }
   },
