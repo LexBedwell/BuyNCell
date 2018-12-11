@@ -14,7 +14,7 @@ class App extends React.Component{
       <HashRouter>
         <div>
           <Route path="/" component={Header} />
-          <Route path="/" component={Main} />
+          <Route exact path="/" component={Main} />
           <Route path="/products" component={ProductList} />
         </div>
       </HashRouter>
