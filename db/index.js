@@ -9,14 +9,10 @@ const Reviews = require('./models/Reviews')
 const Users = require('./models/Users')
 
 LineItems.belongsTo(Products)
-
 Orders.hasMany(LineItems)
-
 Products.hasMany(Reviews)
-
 Users.hasMany(Reviews)
 Users.hasMany(Orders)
-
 Products.belongsToMany(Categories, { through: 'ProductsCategories' })
 Categories.belongsToMany(Products, { through: 'ProductsCategories' })
 

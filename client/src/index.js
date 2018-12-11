@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Provider from 'react-redux'
+
+import store from './store'
 
 class Main extends React.Component{
   render(){
@@ -11,4 +14,4 @@ class Main extends React.Component{
   }
 }
 
-ReactDOM.render(<Main />, document.getElementById("app"))
+ReactDOM.render(<Provider store={store}><Main /></Provider>, document.getElementById('app'))

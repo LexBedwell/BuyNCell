@@ -1,15 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const {models} = require('../db')
-
-router.get('/', (req, res, next) => {
-  res.send('You hit the API!')
-})
-
-router.get('/products', (req, res, next) => {
-  models.Products.findAll({})
-    .then( (products) => res.send(products))
-})
+router.use('/products', require('./routes/products'))
 
 module.exports = router

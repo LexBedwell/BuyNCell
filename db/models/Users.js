@@ -16,7 +16,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [6, 20],
-        msg: 'Minimum of six characters required.'
+        msg: 'Must be between six to twenty characters.'
       }
     }
   },
@@ -31,7 +31,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [4, 40],
-        msg: 'Minimum of four characters required.'
+        msg: 'Must be between four to forty characters.'
       }
     }
   },
@@ -41,7 +41,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [4, 40],
-        msg: 'Minimum of four characters required.'
+        msg: 'Must be between four to forty characters.'
       }
     }
   },
@@ -51,7 +51,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [2, 20],
-        msg: 'Minimum of two characters required.'
+        msg: 'Must be between two to twenty characters.'
       }
     }
   },
@@ -61,7 +61,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [2, 20],
-        msg: 'Minimum of two characters required.'
+        msg: 'Must be between two to twenty characters.'
       }
     }
   },
@@ -71,7 +71,7 @@ const Users = conn.define('users', {
     validate: {
       len: {
         args: [5, 10],
-        msg: 'Minimum of five characters required.'
+        msg: 'Must be between five to ten characters.'
       }
     }
   }
