@@ -1,4 +1,4 @@
-const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
+import LOAD_PRODUCTS from '../../constants/products'
 
 export default (state = [], action) => {
   switch (action.type){
