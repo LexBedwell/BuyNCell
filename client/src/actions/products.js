@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import LOAD_PRODUCTS from '../constants/products'
+import {LOAD_PRODUCTS} from '../constants/products'
 
 export const loadProducts = products => ({
   type: LOAD_PRODUCTS,

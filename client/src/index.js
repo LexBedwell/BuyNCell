@@ -1,17 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Provider from 'react-redux'
 
-import store from './store'
+import {Provider} from 'react-redux'
 
-class Main extends React.Component{
-  render(){
-    return (
-      <div>
-        <h3>This is coming from REACT!</h3>
-      </div>
-    )
-  }
-}
+import store from './store/'
 
-ReactDOM.render(<Provider store={store}><Main /></Provider>, document.getElementById('app'))
+import App from './components/App'
+
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('app'))
+
