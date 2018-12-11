@@ -5,18 +5,25 @@ import {connect} from 'react-redux'
 class ProductList extends React.Component{
   render(){
     return (
-      <ul>
-        {this.props.products.map( product => (
-          <li key={product.id}>{product.title}</li>
-        ))}
-      </ul>
+      <div>
+        <ul>
+          {this.props.categories.map( category => (
+            <li key={category.id}>{category.name}</li>
+          ))}
+        </ul>
+        <ul>
+          {this.props.products.map( product => (
+            <li key={product.id}>{product.name}</li>
+          ))}
+        </ul>
+      </div>
     )
   }
 }
 
-const mapStateToProps = ({products}) => {
+const mapStateToProps = ({categories, products}) => {
   return {
-    products
+    categories, products
   }
 }
 
