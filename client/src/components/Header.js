@@ -12,10 +12,4 @@ class Header extends React.Component{
   }
 }
 
-const mapStateToProps = ({products}) => {
-  return {
-    products
-  }
-}
-
-export default connect(mapStateToProps)(Header)
+export default Header
