@@ -1,5 +1,6 @@
 import React from 'react'
 import {HashRouter, Route} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 import Header from './Header'
 import Main from './Main'
@@ -9,7 +10,6 @@ import ProductDetail from './ProductDetail'
 
 import {_loadCategories} from '../actions/categories'
 import {_loadProducts} from '../actions/products'
-import {connect} from 'react-redux'
 
 class App extends React.Component{
   render(){
