@@ -7,14 +7,10 @@ class ProductList extends React.Component{
     return (
       <div>
         <ul>
-          {this.props.categories.map( category => (
-            <li key={category.id}>{category.name}</li>
-          ))}
+          {this.props.categories.map( category => <li key={category.id}>{category.name}</li>)}
         </ul>
         <ul>
-          {this.props.products.map( product => (
-            <li key={product.id}>{product.name}</li>
-          ))}
+          {this.props.products.map( product => <li key={product.id}>{product.name}</li>)}
         </ul>
       </div>
     )
