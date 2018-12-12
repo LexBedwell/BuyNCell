@@ -14,7 +14,6 @@ class CategoryDetail extends React.Component{
           {selectedCategory.products.map( product => <li key={product.id}>{product.name}</li>)}
         </ul>
       </div>
-
     )
   }
 }
