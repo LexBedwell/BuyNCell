@@ -16,8 +16,8 @@ Orders.hasMany(LineItems)
 Products.hasMany(Reviews)
 Users.hasMany(Reviews)
 Users.hasMany(Orders)
-Products.belongsToMany(Categories, { through: 'ProductsCategories' })
-Categories.belongsToMany(Products, { through: 'ProductsCategories' })
+Products.belongsToMany(Categories, { through: 'productscategories' })
+Categories.belongsToMany(Products, { through: 'productscategories' })
 
 const syncAndSeed = async () => {
   try {

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const conn = require('../connection')
 
 const Products = conn.define('products', {
-  title: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
