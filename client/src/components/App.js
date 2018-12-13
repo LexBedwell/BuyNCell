@@ -1,6 +1,7 @@
 import React from 'react'
 import {HashRouter, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
+import queryString from 'query-string'
 
 import Header from './Header'
 import Main from './Main'
@@ -8,8 +9,9 @@ import CategoryDetail from './CategoryDetail'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
 
-import {_loadCategories} from '../actions/categories'
-import {_loadProducts} from '../actions/products'
+import {setAuth} from '../actions/auth'
+import {loadCategories} from '../actions/categories'
+import {loadProducts} from '../actions/products'
 
 class App extends React.Component{
   render(){
@@ -33,8 +35,9 @@ class App extends React.Component{
 const mapDispatchToProps = (dispatch) => {
   return {
     init: () => {
-      dispatch(_loadProducts())
-      dispatch(_loadCategories())
+      dispatch(loadProducts())
+      dispatch(loadCategories())
+      dispatch(setAuth(queryString.parse(window.localStorage.getItem('token'))))
     }
   }
 }
