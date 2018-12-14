@@ -2,23 +2,10 @@ const Sequelize = require('sequelize')
 const conn = require('../connection')
 
 const Users = conn.define('users', {
-  email: {
+  githubUserId: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      len: {
-        args: [6, 20],
-        msg: 'Must be between six to twenty characters.'
-      }
-    }
+    allowNull: false
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
@@ -27,7 +14,6 @@ const Users = conn.define('users', {
   },
   addressName: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [4, 40],
@@ -37,7 +23,6 @@ const Users = conn.define('users', {
   },
   addressLine: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [4, 40],
@@ -47,7 +32,6 @@ const Users = conn.define('users', {
   },
   addressCity: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [2, 20],
@@ -57,7 +41,6 @@ const Users = conn.define('users', {
   },
   addressState: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [2, 20],
@@ -67,7 +50,6 @@ const Users = conn.define('users', {
   },
   addressZip: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [5, 10],

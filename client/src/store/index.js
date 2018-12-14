@@ -2,10 +2,12 @@ import {combineReducers, createStore, applyMiddleware} from 'redux'
 import loggerMiddleware from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
+import auth from './reducers/auth'
 import categories from './reducers/categories'
 import products from './reducers/products'
 
 const reducer = combineReducers({
+  auth,
   categories,
   products
 })

@@ -2,6 +2,13 @@
   <head>
     <Title>Buy and Cel</Title>
     <script defer src="bundle.js"></script>
+    <script>
+      const token = window.location.search
+      if (token){
+          window.localStorage.setItem('token', token)
+          window.location.search = ''
+      }
+  </script>
   </head>
   <Body>
     <div id="app">
