@@ -7,9 +7,13 @@ export const _setAuth = auth => ({
   auth
 })
 
-export const setAuth = (token) => {
+export const setAuth = ({token}) => {
   return (dispatch) => {
-    axios.post('/api/auth', token)
+    axios.get('/api/auth', {
+      headers: {
+        authorization: token
+      }
+    })
       .then(response => response.data)
       .then(auth => dispatch(_setAuth(auth)))
   }

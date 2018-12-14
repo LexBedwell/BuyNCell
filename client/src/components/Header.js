@@ -37,7 +37,6 @@ const mapDispatchToProps = (dispatch) => {
     logout: () => {
       dispatch(_setAuth({}))
       window.localStorage.removeItem('token')
-      console.log('logout complete')
     }
   }
 }
