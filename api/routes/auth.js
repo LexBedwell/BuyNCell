@@ -6,22 +6,19 @@ const queryString = require('query-string')
 
 const {models} = require('../../db')
 
-router.post('/', async (req, res, next) => {
-    const token = req.body.token
-    if (!token){
-        res.send({})
-        return
-    }
+router.get('/', async (req, res, next) => {
     try {
+        const token = req.headers.authorization
         let decodedToken = jwt.decode(token, process.env.JWT_SECRET)
         let id = decodedToken.id
         let user = await models.Users.findByPk(id)
         if (!user){
             throw new Error('Bad token!')
         }
-        res.send({id: user.id, githubUserId: user.githubUserId, isLoggedIn: true})
+        res.send({id: user.id, githubUserId: user.githubUserId})
     } catch (err) {
-        console.log(err)
+        console.log("Token authentication failed: ", err.message)
+        res.send({})
     }
 })
 
