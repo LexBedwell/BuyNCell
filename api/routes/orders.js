@@ -28,7 +28,6 @@ router.get('/cart', async (req, res, next) => {
   res.send(cart);
   }
   catch (err){
-    console.log('*******Cart error: ', err.message)
     next(err)
   }
 })
