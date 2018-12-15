@@ -9,9 +9,10 @@ import CategoryDetail from './CategoryDetail'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
 
-import {setAuth} from '../actions/auth'
 import {loadCategories} from '../actions/categories'
 import {loadProducts} from '../actions/products'
+import {setAuth} from '../actions/auth'
+import {loadCart} from '../actions/cart'
 
 class App extends React.Component{
   render(){
@@ -38,6 +39,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(loadProducts())
       dispatch(loadCategories())
       dispatch(setAuth(queryString.parse(window.localStorage.getItem('token'))))
+      dispatch(loadCart(queryString.parse(window.localStorage.getItem('token'))))
     }
   }
 }

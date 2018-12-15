@@ -2,6 +2,7 @@ const conn = require('./connection')
 
 const categories = require('./seed/categories')
 const products = require('./seed/products')
+const users = require('./seed/users')
 
 const Categories = require('./models/Categories')
 const Images = require('./models/Images')
@@ -28,6 +29,9 @@ const syncAndSeed = async () => {
     const preProducts = [preCel, preChopCel, preMincCel]
     await regProducts.forEach( product => product.addCategories(reg))
     await preProducts.forEach( product => product.addCategories(pre))
+    const sampleUsers = await Promise.all(users.map( user => Users.create(user)))
+    const sampleOrders = await Promise.all(sampleUsers.map( user => Orders.create({userId: user.id})))
+    regProducts.concat(preProducts).forEach( product => LineItems.create({productId: product.id, orderId: sampleOrders[0].id}))
   } catch (err) {
     console.log(err)
   }

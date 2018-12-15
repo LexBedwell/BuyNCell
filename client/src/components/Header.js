@@ -9,7 +9,6 @@ class Header extends React.Component{
     if(!this.props){
       return null
     }
-    console.log(this.props)
     return (
       <div>
         <Link to='/products'>Products</Link>
