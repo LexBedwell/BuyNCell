@@ -12,7 +12,7 @@ router.use(async (req, res, next) => {
     req.user = await models.Users.findByPk(id)
     next()
   } catch (err) {
-    console.log("Token authentication failed: ", err.message)
+    console.log('Token authentication failed: ', err.message)
     next()
   }
 })
