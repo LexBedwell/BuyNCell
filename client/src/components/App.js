@@ -3,6 +3,7 @@ import {HashRouter, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import queryString from 'query-string'
 
+import Cart from './Cart'
 import Header from './Header'
 import Main from './Main'
 import CategoryDetail from './CategoryDetail'
@@ -21,6 +22,7 @@ class App extends React.Component{
         <div>
           <Route path="/" component={Header} />
           <Route exact path="/" component={Main} />
+          <Route path="/cart" component={Cart} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:productId" component={ProductDetail} />

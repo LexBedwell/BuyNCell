@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, push} from 'react-router-dom'
 
 import {_setAuth} from '../actions/auth'
 
@@ -12,6 +12,7 @@ class Header extends React.Component{
     return (
       <div>
         <Link to='/products'>Products</Link>
+        <Link to='/cart'>Cart</Link>
         {
           localStorage.getItem('token') ? (
             <div>
@@ -36,6 +37,7 @@ const mapDispatchToProps = (dispatch) => {
     logout: () => {
       dispatch(_setAuth({}))
       window.localStorage.removeItem('token')
+      //push('/')
     }
   }
 }
