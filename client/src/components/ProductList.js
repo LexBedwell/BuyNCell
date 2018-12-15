@@ -1,16 +1,17 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class ProductList extends React.Component{
   render(){
     return (
       <div>
         <ul>
-          {this.props.categories.map( category => <li key={category.id}>{category.name}</li>)}
+          {this.props.categories.map( category => <Link key={category.id} to={`/categories/${category.id}`}>{category.name}</Link>)}
         </ul>
         <ul>
-          {this.props.products.map( product => <li key={product.id}>{product.name}</li>)}
+          {this.props.products.map( product => <Link key={product.id} to={`/products/${product.id}`}>{product.name}</Link>)}
         </ul>
       </div>
     )

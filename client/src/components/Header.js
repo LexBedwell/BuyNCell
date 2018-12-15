@@ -10,19 +10,27 @@ class Header extends React.Component{
       return null
     }
     return (
-      <div>
-        <Link to='/products'>Products</Link>
-        <Link to='/cart'>Cart</Link>
-        {
-          localStorage.getItem('token') ? (
-            <div>
-              <li>Hello {this.props.auth.githubUserId}!</li>
-              <li><button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></li>
-            </div>
-          ) : (
-            <a href='/api/auth/github'>Login with Github</a>
-          )
-        }
+      <div className="container">
+        <div className="row justify-content-end">
+          <div className="col-3">
+            <Link to='/products'>Products</Link>
+          </div>
+          <div className="col-3">
+            <Link to='/cart'>Cart</Link>
+          </div>
+          <div className="col-3">
+          {
+            localStorage.getItem('token') ? (
+              <div>
+                <li>Hello {this.props.auth.githubUserId}!</li>
+                <li><button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></li>
+              </div>
+            ) : (
+              <a href='/api/auth/github'>Login with Github</a>
+            )
+          }
+          </div>
+        </div>
       </div>
     )
   }
