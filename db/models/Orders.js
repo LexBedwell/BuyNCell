@@ -18,7 +18,6 @@ const Orders = conn.define('order', {
   },
   addressName: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [4, 40],
@@ -28,7 +27,6 @@ const Orders = conn.define('order', {
   },
   addressLine: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [4, 40],
@@ -38,7 +36,6 @@ const Orders = conn.define('order', {
   },
   addressCity: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [2, 20],
@@ -48,7 +45,6 @@ const Orders = conn.define('order', {
   },
   addressState: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [2, 20],
@@ -58,7 +54,6 @@ const Orders = conn.define('order', {
   },
   addressZip: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       len: {
         args: [5, 10],

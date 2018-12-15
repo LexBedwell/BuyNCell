@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
         }
         res.send({id: user.id, githubUserId: user.githubUserId})
     } catch (err) {
-        console.log("Token authentication failed: ", err.message)
+        console.log('Token authentication failed: ', err.message)
         res.send({})
     }
 })

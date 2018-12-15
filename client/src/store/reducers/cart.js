@@ -1,9 +1,9 @@
-import {SET_AUTH} from '../../constants/auth'
+import {LOAD_CART} from '../../constants/cart'
 
 export default (state = {}, action) => {
   switch (action.type){
-    case SET_AUTH:
-      return action.auth
+    case LOAD_CART:
+      return action.cart
     default:
       return state
   }
