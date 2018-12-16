@@ -12,13 +12,13 @@ router.use(async (req, res, next) => {
     req.user = await models.Users.findByPk(id)
     next()
   } catch (err) {
-    console.log('Token authentication failed: ', err.message)
     next()
   }
 })
 
 router.use('/auth', require('./routes/auth'))
 router.use('/categories', require('./routes/categories'))
+router.use('/lineitems', require('./routes/lineItems'))
 router.use('/orders', require('./routes/orders'))
 router.use('/products', require('./routes/products'))
 

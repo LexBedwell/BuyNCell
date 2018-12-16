@@ -13,7 +13,8 @@ router.get('/', (req, res, next) => {
 
 router.get('/cart', async (req, res, next) => {
   if (!req.user){
-    res.send({})
+    let cart = await models.Orders.create({})
+    res.send(cart)
     return
   }
   const attr = {

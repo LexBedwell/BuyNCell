@@ -22,8 +22,7 @@ class Header extends React.Component{
           {
             localStorage.getItem('token') ? (
               <div>
-                <li>Hello {this.props.auth.githubUserId}!</li>
-                <li><button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></li>
+                <h6>Hello {this.props.auth.githubUserId}! <button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></h6>
               </div>
             ) : (
               <a href='/api/auth/github'>Login with Github</a>
