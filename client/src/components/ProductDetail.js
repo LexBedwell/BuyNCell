@@ -42,7 +42,7 @@ class ProductDetail extends React.Component{
     let newCart = this.props.cart
     let cartQuantity = parseInt(this.state.quantity, 10)
     let productId = this.props.product.id
-    let matchingLineItemIndex = this.props.cart.lineItems.findIndex( function(lineItem){ return lineItem.productId === productId})
+    let matchingLineItemIndex = this.props.cart.lineItems.findIndex( lineItem => { return lineItem.productId === productId})
     if (matchingLineItemIndex !== -1){
       newCart.lineItems[matchingLineItemIndex].quantity = newCart.lineItems[matchingLineItemIndex].quantity + cartQuantity
       this.props.updateCart(newCart)

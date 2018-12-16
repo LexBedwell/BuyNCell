@@ -44,7 +44,8 @@ router.put('/', async (req, res, next) => {
         }
       })
     })
-    res.sendStatus(200)
+    const editedCart = await models.Orders.findOne({ where: {id: req.body.newCart.id}, include: [{model: models.LineItems, include: models.Products }] })
+    res.send(editedCart)
   } catch (err) {
     next(err)
   }
