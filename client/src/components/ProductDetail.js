@@ -59,7 +59,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCart: (newCart) => {
-      axios.put('/api/lineitems', {newCart})
+      axios.put('/api/orders', {newCart})
         .then( () => dispatch(_setCart(newCart)))
     }
   }
