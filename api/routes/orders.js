@@ -13,7 +13,8 @@ router.get('/', (req, res, next) => {
 
 router.get('/cart', async (req, res, next) => {
   if (!req.user){
-    res.send({})
+    let cart = await models.Orders.create({})
+    res.send(cart)
     return
   }
   const attr = {
@@ -28,6 +29,24 @@ router.get('/cart', async (req, res, next) => {
   res.send(cart);
   }
   catch (err){
+    next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    await req.body.newCart.lineItems.forEach(lineItem => {
+      models.LineItems.update({
+        quantity: lineItem.quantity
+      }, {
+        where: {
+            id: lineItem.id
+        }
+      })
+    })
+    const editedCart = await models.Orders.findOne({ where: {id: req.body.newCart.id}, include: [{model: models.LineItems, include: models.Products }] })
+    res.send(editedCart)
+  } catch (err) {
     next(err)
   }
 })

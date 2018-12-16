@@ -1,1 +1,1 @@
-export const LOAD_CART = 'LOAD_CART'
+export const SET_CART = 'SET_CART'

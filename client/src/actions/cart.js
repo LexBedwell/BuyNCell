@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-import {LOAD_CART} from '../constants/cart'
+import {SET_CART} from '../constants/cart'
 
-export const _loadCart = cart => ({
-  type: LOAD_CART,
+export const _setCart = cart => ({
+  type: SET_CART,
   cart
 })
 
-export const loadCart = ({token}) => {
+export const setCart = ({token}) => {
   return (dispatch) => {
     axios.get('/api/orders/cart', {
       headers: {
@@ -15,6 +15,6 @@ export const loadCart = ({token}) => {
       }
     })
       .then(response => response.data)
-      .then(cart => dispatch(_loadCart(cart)))
+      .then(cart => dispatch(_setCart(cart)))
   }
 }
