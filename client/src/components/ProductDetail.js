@@ -46,8 +46,14 @@ class ProductDetail extends React.Component{
     if (matchingLineItemIndex !== -1){
       newCart.lineItems[matchingLineItemIndex].quantity = newCart.lineItems[matchingLineItemIndex].quantity + cartQuantity
       this.props.updateCart(newCart)
+      this.props.history.push(`/cart`)
+    } else {
+      this.props.addLineItem({cartId: newCart.id, productId: productId, quantity: cartQuantity})
+        .then( response => response.data)
+        .then( lineItem => newCart.lineItems.push(lineItem))
+        .then( () => this.props.updateCart)
+        .then( () => this.props.history.push(`/cart`))
     }
-    this.props.history.push(`/cart`)
   }
 }
 
@@ -59,8 +65,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCart: (newCart) => {
-      axios.put('/api/orders', {newCart})
+      axios.put('/api/orders', newCart)
         .then( () => dispatch(_setCart(newCart)))
+    },
+    addLineItem: (cart) => {
+      return axios.put('/api/lineItems', cart)
     }
   }
 }

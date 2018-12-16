@@ -13,8 +13,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/cart', async (req, res, next) => {
   if (!req.user){
-    let cart = await models.Orders.create({})
-    res.send(cart)
+    const cart = await models.Orders.create({})
+    const sentCart = await models.Orders.findOne({ where: {id: cart.id}, include: [{model: models.LineItems, include: models.Products }] })
+    res.send(sentCart)
     return
   }
   const attr = {
@@ -35,7 +36,7 @@ router.get('/cart', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    await req.body.newCart.lineItems.forEach(lineItem => {
+    await req.body.lineItems.forEach(lineItem => {
       models.LineItems.update({
         quantity: lineItem.quantity
       }, {
@@ -44,7 +45,7 @@ router.put('/', async (req, res, next) => {
         }
       })
     })
-    const editedCart = await models.Orders.findOne({ where: {id: req.body.newCart.id}, include: [{model: models.LineItems, include: models.Products }] })
+    const editedCart = await models.Orders.findOne({ where: {id: req.body.id}, include: [{model: models.LineItems, include: models.Products }] })
     res.send(editedCart)
   } catch (err) {
     next(err)

@@ -18,6 +18,7 @@ router.use(async (req, res, next) => {
 
 router.use('/auth', require('./routes/auth'))
 router.use('/categories', require('./routes/categories'))
+router.use('/lineitems', require('./routes/lineitems'))
 router.use('/orders', require('./routes/orders'))
 router.use('/products', require('./routes/products'))
 
