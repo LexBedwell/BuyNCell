@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 class Cart extends React.Component {
   render(){
-    console.log('this.props is: ', this.props)
     if (!this.props.lineItems){
       return (
         <h3>Cart empty!</h3>
