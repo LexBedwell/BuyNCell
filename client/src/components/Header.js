@@ -18,7 +18,7 @@ class Header extends React.Component{
           <div className="col-3">
             <Link to='/cart'>Cart</Link>
           </div>
-          <div className="col-3">
+          <div className="col-4">
           {
             localStorage.getItem('token') ? (
               <div>

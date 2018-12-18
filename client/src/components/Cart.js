@@ -14,15 +14,18 @@ class Cart extends React.Component {
       return <h6>Cart Empty!</h6>
     }
     return (
-      <form id="addToCart" onSubmit={this.handleSubmit}>
-        {this.props.lineItems.map( lineItem => {
-          let index = this.props.lineItems.indexOf(lineItem)
-          return (
-            <p key={lineItem.id}><strong>Name: </strong>{lineItem.product.name} // <strong>Quantity: </strong><input value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} /></p>
-          )
-        })}
-      <p><button type="submit" className="btn btn-primary">Update Cart!</button></p>
-      </form>
+      <div>
+        <form id="addToCart" onSubmit={this.handleSubmit}>
+          {this.props.lineItems.map( lineItem => {
+            let index = this.props.lineItems.indexOf(lineItem)
+            return (
+              <p key={lineItem.id}><strong>Name: </strong>{lineItem.product.name} // <strong>Quantity: </strong><input value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} /></p>
+            )
+          })}
+        <p><button type="submit" className="btn btn-primary">Update Cart</button></p>
+        </form>
+        <p><input type="button" className="btn btn-success" value="Checkout" onClick={this.orderCheckout} /></p>
+      </div>
     )
   }
   constructor(){
@@ -30,8 +33,9 @@ class Cart extends React.Component {
     this.state = {
       lineItems: []
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.orderCheckout = this.orderCheckout.bind(this)
   }
   handleChange(ev){
     let newLineItems = this.state.lineItems
@@ -42,10 +46,18 @@ class Cart extends React.Component {
   }
   handleSubmit(ev){
     ev.preventDefault()
-    let newCart = this.state
-    newCart.id = this.props.id
-    this.props.updateCart(newCart)
+    this.syncCartWithServer()
     this.props.history.push(`/orders`)
+  }
+  syncCartWithServer(){
+    let newCart = this.state
+    let newCartKeys = ['id', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    this.props.updateCart(newCart)
+  }
+  orderCheckout(){
+    this.syncCartWithServer()
+    this.props.history.push(`/checkout`)
   }
   componentDidMount(){
     if (this.props){ 
@@ -73,3 +85,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Cart)
+

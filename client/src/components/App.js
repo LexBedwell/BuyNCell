@@ -5,6 +5,7 @@ import queryString from 'query-string'
 
 import Cart from './Cart'
 import CategoryDetail from './CategoryDetail'
+import Checkout from './Checkout'
 import Header from './Header'
 import Main from './Main'
 import Orders from './Orders'
@@ -25,6 +26,7 @@ class App extends React.Component{
           <Route exact path="/" component={Main} />
           <Route path="/cart" component={Cart} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />
+          <Route path="/checkout" component={Checkout} />
           <Route path="/orders" component={Orders} />
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:productId" component={ProductDetail} />
