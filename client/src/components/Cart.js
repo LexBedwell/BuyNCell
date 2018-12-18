@@ -1,5 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import axios from 'axios'
+
+import {_setCart} from '../actions/cart'
 
 class Cart extends React.Component {
   render(){
@@ -38,6 +41,10 @@ class Cart extends React.Component {
   }
   handleSubmit(ev){
     ev.preventDefault()
+    let newCart = this.state
+    newCart.id = this.props.id
+    this.props.updateCart(newCart)
+    this.props.history.push(`/orders`)
   }
   componentDidMount(){
     if (this.props){ 
@@ -50,4 +57,14 @@ const mapStateToProps = ({cart}) => {
   return cart
 }
 
-module.exports = connect(mapStateToProps)(Cart)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCart: (newCart) => {
+      axios.put('/api/orders', newCart)
+      .then( response => response.data)
+      .then( editedCart => dispatch(_setCart(editedCart)))
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Cart)

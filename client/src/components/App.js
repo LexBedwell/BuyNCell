@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 import queryString from 'query-string'
 
 import Cart from './Cart'
+import CategoryDetail from './CategoryDetail'
 import Header from './Header'
 import Main from './Main'
-import CategoryDetail from './CategoryDetail'
+import Orders from './Orders'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
 
@@ -24,6 +25,7 @@ class App extends React.Component{
           <Route exact path="/" component={Main} />
           <Route path="/cart" component={Cart} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />
+          <Route path="/orders" component={Orders} />
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:productId" component={ProductDetail} />
         </div>
