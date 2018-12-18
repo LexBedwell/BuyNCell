@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import queryString from 'query-string'
 
-import {_setCart} from '../actions/cart'
+import {_setCart, setCart} from '../actions/cart'
 
 class Cart extends React.Component {
   render(){
@@ -14,7 +15,7 @@ class Cart extends React.Component {
     }
     return (
       <form id="addToCart" onSubmit={this.handleSubmit}>
-        {this.state.lineItems.map( lineItem => {
+        {this.props.lineItems.map( lineItem => {
           let index = this.props.lineItems.indexOf(lineItem)
           return (
             <p key={lineItem.id}><strong>Name: </strong>{lineItem.product.name} // <strong>Quantity: </strong><input value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} /></p>
@@ -34,7 +35,7 @@ class Cart extends React.Component {
   }
   handleChange(ev){
     let newLineItems = this.state.lineItems
-    newLineItems[parseInt(ev.target.name, 10)].quantity = ev.target.value
+    newLineItems[parseInt(ev.target.name, 10)].quantity = parseInt(ev.target.value, 10)
     this.setState({
       lineItems: newLineItems
     })
@@ -60,9 +61,13 @@ const mapStateToProps = ({cart}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCart: (newCart) => {
+      if (newCart.userId){
       axios.put('/api/orders', newCart)
-      .then( response => response.data)
-      .then( editedCart => dispatch(_setCart(editedCart)))
+        .then( () => dispatch(setCart(queryString.parse(window.localStorage.getItem('token')))))
+      } else {
+        axios.put('/api/orders', newCart)
+        .then( () => dispatch(_setCart(newCart)))
+      }
     }
   }
 }

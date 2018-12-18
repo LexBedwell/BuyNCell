@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import queryString from 'query-string'
 
-import {_setCart} from '../actions/cart'
+import {_setCart, setCart} from '../actions/cart'
 
 class ProductDetail extends React.Component{
   render(){
@@ -65,8 +66,13 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCart: (newCart) => {
+      if (newCart.userId){
       axios.put('/api/orders', newCart)
+        .then( () => dispatch(setCart(queryString.parse(window.localStorage.getItem('token')))))
+      } else {
+        axios.put('/api/orders', newCart)
         .then( () => dispatch(_setCart(newCart)))
+      }
     },
     addLineItem: (cart) => {
       return axios.put('/api/lineItems', cart)

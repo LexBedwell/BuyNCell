@@ -36,8 +36,8 @@ router.get('/cart', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
   try {
-    await req.body.lineItems.forEach(lineItem => {
-      models.LineItems.update({
+    req.body.lineItems.forEach(async lineItem => {
+      await models.LineItems.update({
         quantity: lineItem.quantity
       }, {
         where: {
