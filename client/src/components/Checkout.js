@@ -1,5 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import axios from 'axios'
+import queryString from 'query-string'
+
+import {setCart} from '../actions/cart'
 
 class Checkout extends React.Component{
   render(){
@@ -23,7 +27,7 @@ class Checkout extends React.Component{
           <p><b>City: </b><input value={this.state.addressCity} onChange={this.handleChange} name="addressCity" /></p>
           <p><b>State: </b><input value={this.state.addressState} onChange={this.handleChange} name="addressState" /></p>
           <p><b>Zip Code: </b><input value={this.state.addressZip} onChange={this.handleChange} name="addressZip" /></p>
-          <p><button type="submit" className="btn btn-success">Update Cart</button></p>
+          <p><button type="submit" className="btn btn-success">Submit Order</button></p>
         </form>
       </div>
     )
@@ -45,7 +49,11 @@ class Checkout extends React.Component{
   }
   handleSubmit(ev){
     ev.preventDefault()
-    console.log('handleSubmit firing!')
+    let newCart = this.state
+    let newCartKeys = ['id', 'lineItems']
+    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    this.props.submitCart(newCart)
+    this.props.history.push(`/orders`)
   }
   componentDidMount(){
     console.log('component mounts with this.props as: ', this.props)
@@ -65,4 +73,13 @@ const mapStateToProps = ({cart}) => {
   return cart
 }
 
-export default connect(mapStateToProps)(Checkout)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitCart: (newCart) => {
+      axios.put('/api/orders/submit', newCart)
+        .then( () => dispatch(setCart(queryString.parse(window.localStorage.getItem('token')))))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

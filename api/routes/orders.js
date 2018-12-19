@@ -25,7 +25,8 @@ router.get('/cart', async (req, res, next) => {
   try {
     let cart = await models.Orders.findOne({ where: attr, include: [{model: models.LineItems, include: models.Products }] })
     if (!cart){
-      cart = await models.Orders.create(attr)
+      const createdCart = await models.Orders.create({userId: req.user.id, status: 'cart', addressName: req.user.addressName, addressLine: req.user.addressLine, addressCity: req.user.addressCity, addressState: req.user.addressState, addressZip: req.user.addressZip})
+      cart = await models.Orders.findOne({ where: {id: createdCart.id}, include: [{model: models.LineItems, include: models.Products }] })
     }
   res.send(cart);
   }
@@ -47,6 +48,31 @@ router.put('/', async (req, res, next) => {
     })
     const editedCart = await models.Orders.findOne({ where: {id: req.body.id}, include: [{model: models.LineItems, include: models.Products }] })
     res.send(editedCart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/submit', async (req, res, next) => {
+  try {
+    req.body.lineItems.forEach(async lineItem => {
+      await models.LineItems.update({
+        quantity: lineItem.quantity
+      }, {
+        where: {
+            id: lineItem.id
+        }
+      })
+    })
+    await models.Orders.update({
+        status: 'processing',
+        isPaid: true
+      }, {
+      where: {
+        id: req.body.id
+      }
+    })
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }

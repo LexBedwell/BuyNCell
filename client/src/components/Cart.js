@@ -7,7 +7,7 @@ import {_setCart, setCart} from '../actions/cart'
 
 class Cart extends React.Component {
   render(){
-    if (!this.props || this.props.lineItems === undefined){
+    if (!this.props && this.props.lineItems === undefined){
       return null
     }
     if (this.props.lineItems.length === 0 || this.state.lineItems.length === 0){

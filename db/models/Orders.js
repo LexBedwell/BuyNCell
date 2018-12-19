@@ -8,7 +8,7 @@ const Orders = conn.define('order', {
     primaryKey: true
   },
   status: {
-    type: Sequelize.ENUM('cart', 'created', 'processing', 'cancelled', 'completed', 'delivered'),
+    type: Sequelize.ENUM('cart', 'processing', 'cancelled', 'completed', 'delivered'),
     defaultValue: 'cart'
   },
   isPaid: {
