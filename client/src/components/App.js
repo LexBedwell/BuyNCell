@@ -8,7 +8,7 @@ import CategoryDetail from './CategoryDetail'
 import Checkout from './Checkout'
 import Header from './Header'
 import Main from './Main'
-import Orders from './Orders'
+import OrderHistory from './OrderHistory'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
 
@@ -27,7 +27,7 @@ class App extends React.Component{
           <Route path="/cart" component={Cart} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />
           <Route path="/checkout" component={Checkout} />
-          <Route path="/orders" component={Orders} />
+          <Route path="/orderhistory" component={OrderHistory} />
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:productId" component={ProductDetail} />
         </div>

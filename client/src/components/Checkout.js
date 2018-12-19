@@ -51,18 +51,13 @@ class Checkout extends React.Component{
     let newCartKeys = ['id', 'lineItems']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.submitCart(newCart)
-    this.props.history.push(`/orders`)
+    window.alert('Order Submitted!')
+    this.props.history.push(`/`)
   }
   componentDidMount(){
-    console.log('component mounts with this.props as: ', this.props)
     if (this.props){
-      this.setState({
-        addressName: this.props.addressName,
-        addressLine: this.props.addressLine,
-        addressCity: this.props.addressCity,
-        addressState: this.props.addressState,
-        addressZip: this.props.addressZip
-      })
+      let keys = ['addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+      keys.forEach( key => this.props[key] ? this.setState({key: this.props[key]}) : this.setState({key: ''}))
     }
   }
 }

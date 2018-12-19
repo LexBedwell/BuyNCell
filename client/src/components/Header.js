@@ -11,12 +11,23 @@ class Header extends React.Component{
     }
     return (
       <div className="container">
-        <div className="row justify-content-end">
+        <div className="row">
           <div className="col-3">
             <Link to='/products'>Products</Link>
           </div>
-          <div className="col-3">
+          <div className="col-2">
             <Link to='/cart'>Cart</Link>
+          </div>
+          <div className="col-3">
+            {
+            localStorage.getItem('token') ? (
+              <div>
+                <Link to='/orderhistory'>Orders</Link>
+              </div>
+            ) : (
+              ''
+            )
+          }
           </div>
           <div className="col-4">
           {

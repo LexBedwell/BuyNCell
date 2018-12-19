@@ -1,10 +1,27 @@
 const express = require('express')
 const router = express.Router()
 
+const {Op} = require('sequelize')
+
 const {models} = require('../../db/')
 
 router.get('/', (req, res, next) => {
   models.Orders.findAll({
+    include: [{model: models.LineItems, include: models.Products }],
+    order: [['createdAt', 'DESC']]
+  })
+    .then( response => res.send(response))
+})
+
+router.get('/history', (req, res, next) => {
+  const attr = {
+    userId: req.user.id,
+    status: {
+      [Op.or]: ['processing', 'cancelled', 'completed', 'delivered']
+    }
+  }
+  models.Orders.findAll({
+    where: attr,
     include: [{model: models.LineItems, include: models.Products }],
     order: [['createdAt', 'DESC']]
   })
