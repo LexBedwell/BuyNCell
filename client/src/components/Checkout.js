@@ -56,7 +56,7 @@ class Checkout extends React.Component{
   }
   componentDidMount(){
     if (this.props){
-      let keys = ['addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+      const keys = ['addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
       keys.forEach( key => this.props[key] ? this.setState({key: this.props[key]}) : this.setState({key: ''}))
     }
   }
