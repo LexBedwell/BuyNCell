@@ -13,8 +13,6 @@ class Checkout extends React.Component{
     if (this.props.lineItems.length === 0){
       return <h6>Cart Empty!</h6>
     }
-    console.log('this.props is ', this.props)
-    console.log('this.state is ', this.props)
     return (
       <div>
         <h5>Your Cart:</h5>

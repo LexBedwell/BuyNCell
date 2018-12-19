@@ -66,7 +66,12 @@ router.put('/submit', async (req, res, next) => {
     })
     await models.Orders.update({
         status: 'processing',
-        isPaid: true
+        isPaid: true,
+        addressName: req.body.addressName,
+        addressLine: req.body.addressLine,
+        addressCity: req.body.addressCity,
+        addressState: req.body.addressState,
+        addressZip: req.body.addressZip
       }, {
       where: {
         id: req.body.id
