@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class CategoryDetail extends React.Component{
   render(){
@@ -8,11 +9,13 @@ class CategoryDetail extends React.Component{
       return null
     }
     return (
-      <div>
-        <h3>{selectedCategory.name}</h3>
-        <ul>
-          {selectedCategory.products.map( product => <li key={product.id}>{product.name}</li>)}
-        </ul>
+      <div className="px-5 py-2">
+        <h5 className="text-dark"><strong>{selectedCategory.name}</strong></h5>
+        <nav>
+          <ul className="pagination pagination-lg">
+            {selectedCategory.products.map( product => <li key={product.id} className="page-item"><Link className="page-link" to={`/products/${product.id}`}>{product.name}</Link></li>)}
+          </ul>
+        </nav>
       </div>
     )
   }

@@ -10,22 +10,33 @@ class Header extends React.Component{
       return null
     }
     return (
-      <div className="container">
-        <div className="row justify-content-end">
-          <div className="col-3">
-            <Link to='/products'>Products</Link>
+      <div className="container p-3">
+        <div className="row">
+          <div className="col-2">
+            <Link className ="btn btn-outline-success" to='/products'>Products</Link>
           </div>
-          <div className="col-3">
-            <Link to='/cart'>Cart</Link>
+          <div className="col-2">
+            <Link className ="btn btn-outline-success" to='/cart'>Cart</Link>
           </div>
-          <div className="col-3">
+          <div className="col-2">
+            {
+            localStorage.getItem('token') ? (
+              <div>
+                <Link className ="btn btn-outline-success" to='/orderhistory'>Orders</Link>
+              </div>
+            ) : (
+              ''
+            )
+          }
+          </div>
+          <div className="col-6 d-flex flex-row-reverse">
           {
             localStorage.getItem('token') ? (
               <div>
-                <h6>Hello {this.props.auth.githubUserId}! <button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></h6>
+                <h6 className="text-dark">Hello <strong>{this.props.auth.githubUserId}</strong>! <button className="btn btn-outline-danger" onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></h6>
               </div>
             ) : (
-              <a href='/api/auth/github'>Login with Github</a>
+              <a href='/api/auth/github' className ="btn btn-outline-success">Login with Github</a>
             )
           }
           </div>

@@ -6,13 +6,13 @@ import {Link} from 'react-router-dom'
 class ProductList extends React.Component{
   render(){
     return (
-      <div>
-        <ul>
-          {this.props.categories.map( category => <Link key={category.id} to={`/categories/${category.id}`}>{category.name}</Link>)}
-        </ul>
-        <ul>
-          {this.props.products.map( product => <Link key={product.id} to={`/products/${product.id}`}>{product.name}</Link>)}
-        </ul>
+      <div className="px-5 py-2">
+        <h5 className="text-dark"><strong>Categories</strong></h5>
+        <nav>
+          <ul className="pagination">
+            {this.props.categories.map( category => <li className="page-item" key={category.id} ><Link className="page-link" to={`/categories/${category.id}`}>{category.name}</Link></li>)}
+          </ul>
+        </nav>
       </div>
     )
   }
