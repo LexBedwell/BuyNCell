@@ -27,8 +27,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     init: () => {
-      //dispatch(loadProducts())
-      //dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
       dispatch(loadOrderHistory(queryString.parse(window.localStorage.getItem('token'))))
     }
   }
