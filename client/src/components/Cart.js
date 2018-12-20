@@ -7,7 +7,7 @@ import {_setCart, setCart} from '../actions/cart'
 
 class Cart extends React.Component {
   render(){
-    if (!this.props && this.props.lineItems === undefined){
+    if (!this.props || this.props.lineItems === undefined || this.state.lineItems === undefined){
       return null
     }
     if (this.props.lineItems.length === 0 || this.state.lineItems.length === 0){
@@ -51,7 +51,7 @@ class Cart extends React.Component {
   }
   syncCartWithServer(){
     let newCart = this.state
-    let newCartKeys = ['id', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.updateCart(newCart)
   }

@@ -23,7 +23,7 @@ const Products = conn.define('products', {
     }
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.NUMERIC(12, 2),
     allowNull: false,
     validate: {
       isFloat: true

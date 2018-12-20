@@ -14,18 +14,83 @@ class Checkout extends React.Component{
       return <h6>Cart Empty!</h6>
     }
     return (
-      <div>
-        <h5>Your Cart:</h5>
-        <ul>
-          {this.props.lineItems.map( lineItem => <li key={lineItem.id}>Name: {lineItem.product.name} // Quantity: {lineItem.quantity}</li>)}
-        </ul>
+      <div className="container w-75">
+        <h5 className="bg-light">Order Summary</h5>
+        <div className="row offset-sm-1 col-sm-11 text-center">
+          <div className="col-sm-4">
+            <strong>Name</strong>
+          </div>
+          <div className="col-sm-2">
+            <strong>Quantity</strong>
+          </div>
+          <div className="col-sm-2">
+            <strong>Price</strong>
+          </div>
+          <div className="col-sm-2">
+            <strong>Total</strong>
+          </div>
+        </div>
+        {this.props.lineItems.map( lineItem => (
+          <div key={lineItem.id} className="row offset-sm-1 col-sm-11 text-center">
+            <div className="col-sm-4 text-left">
+              {lineItem.product.name}
+            </div>
+            <div className="col-sm-2">
+              {lineItem.quantity}
+            </div>
+            <div className="col-sm-2">
+              ${lineItem.product.price}
+            </div>
+            <div className="col-sm-2">
+              ${(lineItem.quantity * lineItem.product.price).toFixed(2)}
+            </div>
+          </div>
+        ))}
+        <div className="row offset-sm-1 col-sm-11 text-center">
+          <div className="col-sm-7 bg-light text-left">
+            <strong>Grand Total</strong>
+          </div>
+          <div className="col-sm-4 bg-light">
+            <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
+          </div>
+        </div>
+        <h5 className="bg-light mt-4">Shipping Information</h5>
         <form id="addToCart" onSubmit={this.handleSubmit}>
-          <p><b>Name: </b><input value={this.state.addressName} onChange={this.handleChange} name="addressName" /></p>
-          <p><b>Address: </b><input value={this.state.addressLine} onChange={this.handleChange} name="addressLine" /></p>
-          <p><b>City: </b><input value={this.state.addressCity} onChange={this.handleChange} name="addressCity" /></p>
-          <p><b>State: </b><input value={this.state.addressState} onChange={this.handleChange} name="addressState" /></p>
-          <p><b>Zip Code: </b><input value={this.state.addressZip} onChange={this.handleChange} name="addressZip" /></p>
-          <p><button type="submit" className="btn btn-success">Submit Order</button></p>
+          <div className="form-group row offset-sm-1 col-sm-11">
+            <label className="col-sm-3 col-form-label">Name: </label>
+            <div className="col-sm-9">
+              <input className="form-control" type="text" value={this.state.addressName} onChange={this.handleChange} name="addressName" />
+            </div>
+          </div>
+          <div className="form-group row offset-sm-1 col-sm-11">
+            <label className="col-sm-3 col-form-label">Address: </label>
+            <div className="col-sm-9">
+              <input className="form-control" type="text" value={this.state.addressLine} onChange={this.handleChange} name="addressLine" />
+            </div>
+          </div>
+          <div className="form-group row offset-sm-1 col-sm-11">
+            <label className="col-sm-3 col-form-label">City: </label>
+            <div className="col-sm-9">
+              <input className="form-control" type="text" value={this.state.addressCity} onChange={this.handleChange} name="addressCity" />
+            </div>
+          </div>
+          <div className="form-group row offset-sm-1 col-sm-11">
+            <label className="col-sm-3 col-form-label">State: </label>
+            <div className="col-sm-9">
+              <input className="form-control" type="text" value={this.state.addressState} onChange={this.handleChange} name="addressState" />
+            </div>
+          </div>
+          <div className="form-group row offset-sm-1 col-sm-11">
+            <label className="col-sm-3 col-form-label">Zip Code: </label>
+            <div className="col-sm-9">
+              <input className="form-control" type="text" value={this.state.addressZip} onChange={this.handleChange} name="addressZip" />
+            </div>
+          </div>
+          <div className="form-group row offset-sm-1 col-sm-11">
+            <div className="offset-sm-6 col-sm-6">
+              <button type="submit" className="btn btn-outline-success">Submit Order</button>
+            </div>
+          </div>
         </form>
       </div>
     )
@@ -57,7 +122,7 @@ class Checkout extends React.Component{
   componentDidMount(){
     if (this.props){
       const keys = ['addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
-      keys.forEach( key => this.props[key] ? this.setState({key: this.props[key]}) : this.setState({key: ''}))
+      keys.forEach( key => this.props[key] ? this.setState({[key]: this.props[key]}) : this.setState({key: ''}))
     }
   }
 }
