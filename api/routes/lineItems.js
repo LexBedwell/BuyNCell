@@ -12,7 +12,6 @@ router.put('/', (req, res, next) => {
 })
 
 router.delete('/:id', (req, res, next) => {
-  console.log('delete line item route hit with id: ', req.params.id)
   models.LineItems.destroy({
     where: {
       id: req.params.id
