@@ -30,6 +30,9 @@ class Cart extends React.Component {
             <div className="col-sm-2 my-1">
               <strong>Total</strong>
             </div>
+            <div className="col-sm-2 my-1">
+              <strong>Remove</strong>
+            </div>
           </div>
           {this.props.lineItems.map( lineItem => {
             let index = this.props.lineItems.indexOf(lineItem)
@@ -46,6 +49,9 @@ class Cart extends React.Component {
                 </div>
                 <div className="col-sm-2 my-1 text-center">
                   ${(lineItem.quantity * lineItem.product.price).toFixed(2)}
+                </div>
+                <div className="col-sm-2 my-1 text-center">
+                  <input type="button" className="btn btn-outline-danger btn-sm" value="X" onClick={() => {this.deleteLineItem(lineItem)}} />
                 </div>
               </div>
             )
@@ -88,6 +94,9 @@ class Cart extends React.Component {
     ev.preventDefault()
     this.syncCartWithServer()
     this.props.history.push(`/orderhistory`)
+  }
+  deleteLineItem(lineItem){
+    console.log('lineItem to be deleted: ', lineItem)
   }
   syncCartWithServer(){
     let newCart = this.state
