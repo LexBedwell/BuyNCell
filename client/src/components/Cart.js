@@ -96,10 +96,10 @@ class Cart extends React.Component {
     this.props.history.push(`/orderhistory`)
   }
   deleteLineItem(lineItem){
-    let filteredLineItems = this.state.lineItems.filter( elem => elem.id !== lineItem.id)
+    const filteredLineItems = this.state.lineItems.filter( elem => elem.id !== lineItem.id)
     let newCart = this.state
     newCart.lineItems = filteredLineItems
-    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     axios.delete(`/api/lineitems/${lineItem.id}`)
       .then( () => this.props.updateCart(newCart))
@@ -109,7 +109,7 @@ class Cart extends React.Component {
   }
   syncCartWithServer(){
     let newCart = this.state
-    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.updateCart(newCart)
   }
