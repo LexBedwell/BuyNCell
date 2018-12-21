@@ -116,7 +116,7 @@ class Checkout extends React.Component{
     let newCartKeys = ['id', 'lineItems']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.submitCart(newCart)
-    window.alert('Order Submitted!')
+    window.alert('Thank you! Your order has been submitted!')
     this.props.history.push(`/`)
   }
   componentDidMount(){
