@@ -7,24 +7,64 @@ import {_setCart, setCart} from '../actions/cart'
 
 class Cart extends React.Component {
   render(){
-    if (!this.props && this.props.lineItems === undefined){
+    if (!this.props || this.props.lineItems === undefined || this.state.lineItems === undefined){
       return null
     }
     if (this.props.lineItems.length === 0 || this.state.lineItems.length === 0){
       return <h6>Cart Empty!</h6>
     }
     return (
-      <div>
+      <div className="container w-75">
+        <h5 className="bg-light">Your Cart</h5>
         <form id="addToCart" onSubmit={this.handleSubmit}>
+          <div className="form-row offset-sm-1 col-sm-11 text-center">
+            <div className="col-sm-4 my-1">
+              <strong>Name</strong>
+            </div>
+            <div className="col-sm-1 my-1">
+              <strong>Quantity</strong>
+            </div>
+            <div className="col-sm-2 my-1">
+              <strong>Price</strong>
+            </div>
+            <div className="col-sm-2 my-1">
+              <strong>Total</strong>
+            </div>
+          </div>
           {this.props.lineItems.map( lineItem => {
             let index = this.props.lineItems.indexOf(lineItem)
             return (
-              <p key={lineItem.id}><strong>Name: </strong>{lineItem.product.name} // <strong>Quantity: </strong><input value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} /></p>
+              <div className="form-row offset-sm-1 col-sm-11 my-1" key={lineItem.id}>
+                <div className="col-sm-4 my-1">
+                  {lineItem.product.name}
+                </div>
+                <div className="col-sm-1 my-1 text-center">
+                  <input className="form-control" type="text" value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} />
+                </div>
+                <div className="col-sm-2 my-1 text-center">
+                  ${lineItem.product.price}
+                </div>
+                <div className="col-sm-2 my-1 text-center">
+                  ${(lineItem.quantity * lineItem.product.price).toFixed(2)}
+                </div>
+              </div>
             )
           })}
-        <p><button type="submit" className="btn btn-primary">Update Cart</button></p>
+          <div className="form-row offset-sm-1 col-sm-11 my-1">
+            <div className="col-sm-5 bg-light text-left">
+              <strong>Grand Total</strong>
+            </div>
+            <div className="col-sm-6 bg-light text-center">
+              <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
+            </div>
+          </div>
+          <div className="form-row offset-sm-1 col-sm-11 my-3">
+            <div className="offset-sm-5 col-sm-7">
+              <button type="submit" className="btn btn-outline-primary m-3">Update Cart</button>
+              <input type="button" className="btn btn-outline-success m-3" value="Checkout" onClick={this.orderCheckout} />  
+            </div>
+          </div>
         </form>
-        <p><input type="button" className="btn btn-success" value="Checkout" onClick={this.orderCheckout} /></p>
       </div>
     )
   }
@@ -47,11 +87,11 @@ class Cart extends React.Component {
   handleSubmit(ev){
     ev.preventDefault()
     this.syncCartWithServer()
-    this.props.history.push(`/orders`)
+    this.props.history.push(`/orderhistory`)
   }
   syncCartWithServer(){
     let newCart = this.state
-    let newCartKeys = ['id', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.updateCart(newCart)
   }

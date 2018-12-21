@@ -16,13 +16,13 @@ class Header extends React.Component{
             <Link className ="btn btn-outline-success" to='/products'>Products</Link>
           </div>
           <div className="col-2">
-            <Link className ="btn btn-outline-success" to='/cart'>Cart</Link>
+            <Link className="btn btn-outline-success" to='/cart'>Cart</Link>
           </div>
           <div className="col-2">
             {
             localStorage.getItem('token') ? (
               <div>
-                <Link className ="btn btn-outline-success" to='/orderhistory'>Orders</Link>
+                <Link className="btn btn-outline-success" to='/orderhistory'>Orders</Link>
               </div>
             ) : (
               ''
@@ -36,7 +36,7 @@ class Header extends React.Component{
                 <h6 className="text-dark">Hello <strong>{this.props.auth.githubUserId}</strong>! <button className="btn btn-outline-danger" onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></h6>
               </div>
             ) : (
-              <a href='/api/auth/github' className ="btn btn-outline-success">Login with Github</a>
+              <a href='/api/auth/github' className="btn btn-outline-success">Login with Github</a>
             )
           }
           </div>
