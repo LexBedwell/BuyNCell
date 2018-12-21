@@ -42,7 +42,7 @@ class Cart extends React.Component {
                   {lineItem.product.name}
                 </div>
                 <div className="col-sm-1 my-1 text-center">
-                  <input className="form-control" type="text" value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} />
+                  <input className="form-control" type="text" value={lineItem.quantity} onChange={this.handleChange} name={index.toString()} />
                 </div>
                 <div className="col-sm-2 my-1 text-center">
                   ${lineItem.product.price}
@@ -96,7 +96,29 @@ class Cart extends React.Component {
     this.props.history.push(`/orderhistory`)
   }
   deleteLineItem(lineItem){
-    console.log('lineItem to be deleted: ', lineItem)
+    //console.log('lineItem to delete is: ', lineItem)
+    let filteredLineItems = this.state.lineItems.filter( elem => elem.id !== lineItem.id)
+    //console.log('filteredLineItem in delete is: ', filteredLineItems)
+    let newCart = this.state
+    newCart.lineItems = filteredLineItems
+    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    //console.log('new cart is: ', newCart)
+    axios.delete(`/api/lineitems/${lineItem.id}`)
+      .then( () => this.props.updateCart(newCart))
+    this.setState({
+      lineItems: filteredLineItems
+    })
+    //this.syncCartWithServer()
+    console.log('this.state in delete is: ', this.state)
+    /*
+    let newCart = this.state
+    newCart.lineItems = filteredLineItems
+    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    console.log('new cart is: ', newCart)
+    this.props.updateCart(newCart)
+    */
   }
   syncCartWithServer(){
     let newCart = this.state
