@@ -13,7 +13,7 @@ class Main extends React.Component{
                     <td className="title"><h1>Celery Store</h1></td>
                   </tr>
                   <tr>
-                    <td className="title"><h4><em>We fresh</em></h4></td>
+                    <td className="title text-right"><h6><em>We fresh</em></h6></td>
                   </tr>
                 </tbody>
               </table>
