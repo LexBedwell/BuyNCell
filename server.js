@@ -12,7 +12,6 @@ try {
 
 const PORT = process.env.PORT || 3000
 
-//app.use(express.json())
 app.use(bodyParser({limit: '50mb'}))
 app.use(bodyParser())
 app.use(express.static('./client/public'))

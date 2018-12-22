@@ -53,7 +53,6 @@ router.get('/cart', async (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
-  console.log('****ORDER PUT API HIT!!!')
   try {
     req.body.lineItems.forEach(async lineItem => {
       await models.LineItems.update({
