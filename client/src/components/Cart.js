@@ -30,6 +30,9 @@ class Cart extends React.Component {
             <div className="col-sm-2 my-1">
               <strong>Total</strong>
             </div>
+            <div className="col-sm-2 my-1">
+              <strong>Remove</strong>
+            </div>
           </div>
           {this.props.lineItems.map( lineItem => {
             let index = this.props.lineItems.indexOf(lineItem)
@@ -39,13 +42,16 @@ class Cart extends React.Component {
                   {lineItem.product.name}
                 </div>
                 <div className="col-sm-1 my-1 text-center">
-                  <input className="form-control" type="text" value={this.state.lineItems[index].quantity} onChange={this.handleChange} name={index.toString()} />
+                  <input className="form-control" type="text" value={lineItem.quantity} onChange={this.handleChange} name={index.toString()} />
                 </div>
                 <div className="col-sm-2 my-1 text-center">
                   ${lineItem.product.price}
                 </div>
                 <div className="col-sm-2 my-1 text-center">
                   ${(lineItem.quantity * lineItem.product.price).toFixed(2)}
+                </div>
+                <div className="col-sm-2 my-1 text-center">
+                  <input type="button" className="btn btn-outline-danger btn-sm" value="X" onClick={() => {this.deleteLineItem(lineItem)}} />
                 </div>
               </div>
             )
@@ -89,9 +95,21 @@ class Cart extends React.Component {
     this.syncCartWithServer()
     this.props.history.push(`/orderhistory`)
   }
+  deleteLineItem(lineItem){
+    const filteredLineItems = this.state.lineItems.filter( elem => elem.id !== lineItem.id)
+    let newCart = this.state
+    newCart.lineItems = filteredLineItems
+    const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    axios.delete(`/api/lineitems/${lineItem.id}`)
+      .then( () => this.props.updateCart(newCart))
+    this.setState({
+      lineItems: filteredLineItems
+    })
+  }
   syncCartWithServer(){
     let newCart = this.state
-    let newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
+    const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.updateCart(newCart)
   }

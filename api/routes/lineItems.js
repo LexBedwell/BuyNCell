@@ -11,4 +11,14 @@ router.put('/', (req, res, next) => {
     .catch(next)
 })
 
+router.delete('/:id', (req, res, next) => {
+  models.LineItems.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then( () => res.sendStatus(200))
+  .catch(next)
+})
+
 module.exports = router

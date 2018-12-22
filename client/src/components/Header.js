@@ -33,7 +33,7 @@ class Header extends React.Component{
           {
             localStorage.getItem('token') ? (
               <div>
-                <h6 className="text-dark">Hello <strong>{this.props.auth.githubUserId}</strong>! <button className="btn btn-outline-danger" onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></h6>
+                <h6 className="text-dark">Hello <strong>{this.props.auth.githubUserId}</strong>! <button className="btn btn-outline-danger btn-sm" onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button></h6>
               </div>
             ) : (
               <a href='/api/auth/github' className="btn btn-outline-success">Login with Github</a>
