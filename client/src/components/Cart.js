@@ -5,12 +5,13 @@ import queryString from 'query-string'
 
 import {_setCart, setCart} from '../actions/cart'
 
+// eslint-disable-next-line react/no-deprecated
 class Cart extends React.Component {
   render(){
     if (!this.props || this.props.lineItems === undefined || this.state.lineItems === undefined){
       return null
     }
-    if (this.props.lineItems.length === 0 || this.state.lineItems.length === 0){
+    if (this.props.lineItems.length === 0){
       return <h6>Cart Empty!</h6>
     }
     return (
@@ -74,10 +75,10 @@ class Cart extends React.Component {
       </div>
     )
   }
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
-      lineItems: []
+      lineItems: props ? props.lineItems : []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -117,9 +118,9 @@ class Cart extends React.Component {
     this.syncCartWithServer()
     this.props.history.push(`/checkout`)
   }
-  componentDidMount(){
-    if (this.props){ 
-      this.setState({lineItems: this.props.lineItems})
+  componentWillReceiveProps(props){
+    if (props.lineItems !== undefined){
+      this.setState({lineItems: props.lineItems})
     }
   }
 }
@@ -141,6 +142,16 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
+
+/*
+  componentDidMount(){
+    if (this.props && this.props.lineItems !== undefined){ 
+      this.setState({lineItems: this.props.lineItems})
+    } else {
+      this.setState({lineItems: []})
+    }
+  }
+*/
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Cart)
 
