@@ -143,15 +143,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-/*
-  componentDidMount(){
-    if (this.props && this.props.lineItems !== undefined){ 
-      this.setState({lineItems: this.props.lineItems})
-    } else {
-      this.setState({lineItems: []})
-    }
-  }
-*/
-
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Cart)
 
