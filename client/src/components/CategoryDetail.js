@@ -12,7 +12,7 @@ class CategoryDetail extends React.Component{
       <div className="px-5 py-2">
         <h5 className="text-dark"><strong>{selectedCategory.name}</strong></h5>
         <nav>
-          <ul className="pagination pagination-lg">
+          <ul className="pagination">
             {selectedCategory.products.map( product => <li key={product.id} className="page-item"><Link className="page-link" to={`/products/${product.id}`}>{product.name}</Link></li>)}
           </ul>
         </nav>

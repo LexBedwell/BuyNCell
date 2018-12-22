@@ -7,7 +7,7 @@ import {loadOrderHistory} from '../actions/orderHistory'
 class Orders extends React.Component{
   render(){
     return (
-      <div className="container w-75">
+      <div className="container w-75 p-3 my-3 bg-light">
         <h5 className="mt-4">Your Cart</h5>
         <div className="row offset-sm-1 col-sm-11 bg-light">
           <div className="col-sm-8">
