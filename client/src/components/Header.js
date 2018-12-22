@@ -12,6 +12,9 @@ class Header extends React.Component{
     return (
       <div className="container p-1">
         <div className="row">
+        <div className="col-2">
+            <Link className ="btn btn-outline-success btn-sm" to='/'>Home</Link>
+          </div>
           <div className="col-2">
             <Link className ="btn btn-outline-success btn-sm" to='/products'>Products</Link>
           </div>
@@ -29,7 +32,7 @@ class Header extends React.Component{
             )
           }
           </div>
-          <div className="col-6 d-flex flex-row-reverse">
+          <div className="col-4 d-flex flex-row-reverse">
           {
             localStorage.getItem('token') ? (
               <div>

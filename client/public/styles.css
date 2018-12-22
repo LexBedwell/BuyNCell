@@ -6,6 +6,11 @@
   background-size: cover;
 }
 
+.productImage {
+  height: 200px;
+  width: 200px;
+}
+
 .title {
   color: rgb(120,120,120);
 }

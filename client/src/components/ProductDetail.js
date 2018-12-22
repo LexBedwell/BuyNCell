@@ -12,17 +12,16 @@ class ProductDetail extends React.Component{
       return null
     }
     return (
-      <div key={product.id}>
+      <div className="container w-75 p-3 my-3 bg-light">
+        <img className="productImage" src={product.photo} />
         <ul>
-          <li>**PHOTO GOES HERE**</li>
-          <li>Name: {product.name}</li>
-          <li>Description: {product.description}</li>
-          <li>Price: {product.price}</li>
-          <li>Quantity: {product.quantity}</li>
+          <li><strong>{product.name}</strong></li>
+          <li><em>{product.description}</em></li>
+          <li>${product.price}</li>
         </ul>
         <form id="addToCart" onSubmit={this.handleSubmit}>
           <p><b>Quantity: </b><input value={this.state.quantity} onChange={this.handleChange} name="quantity" /></p>
-          <p><button type="submit" className="btn btn-primary" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
+          <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
         </form>
       </div>
     )
