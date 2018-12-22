@@ -5,9 +5,10 @@ import queryString from 'query-string'
 
 import {setCart} from '../actions/cart'
 
+// eslint-disable-next-line react/no-deprecated
 class Checkout extends React.Component{
   render(){
-    if (!this.props || !this.props.lineItems || !this.props.id){
+    if (!this.props || this.props.lineItems === undefined){
       return null
     }
     if (this.props.lineItems.length === 0){
@@ -95,14 +96,14 @@ class Checkout extends React.Component{
       </div>
     )
   }
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
-      addressName: '',
-      addressLine: '',
-      addressCity: '',
-      addressState: '',
-      addressZip: ''
+      addressName: props ? props.addressName : '',
+      addressLine: props ? props.addressLine : '',
+      addressCity: props ? props.addressCity : '',
+      addressState: props ? props.addressState : '',
+      addressZip: props ? props.addressZip : ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -119,10 +120,10 @@ class Checkout extends React.Component{
     window.alert('Thank you! Your order has been submitted!')
     this.props.history.push(`/`)
   }
-  componentDidMount(){
-    if (this.props){
+  componentWillReceiveProps(props){
+    if (props){
       const keys = ['addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
-      keys.forEach( key => this.props[key] ? this.setState({[key]: this.props[key]}) : this.setState({key: ''}))
+      keys.forEach( key => props[key] ? this.setState({[key]: props[key]}) : this.setState({key: ''}))
     }
   }
 }
