@@ -1,0 +1,16 @@
+.bg {
+  background-image: url("leekNotCelery.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.productImage {
+  height: 200px;
+  width: 200px;
+}
+
+.title {
+  color: rgb(120,120,120);
+}

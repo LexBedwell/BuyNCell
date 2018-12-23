@@ -15,7 +15,7 @@ class Checkout extends React.Component{
       return <h6>Cart Empty!</h6>
     }
     return (
-      <div className="container w-75">
+      <div className="container w-75 p-3 my-3 bg-light">
         <h5 className="bg-light">Order Summary</h5>
         <div className="row offset-sm-1 col-sm-11 text-center">
           <div className="col-sm-4">

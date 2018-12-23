@@ -11,11 +11,8 @@ class Cart extends React.Component {
     if (!this.props || this.props.lineItems === undefined || this.state.lineItems === undefined){
       return null
     }
-    if (this.props.lineItems.length === 0){
-      return <h6>Cart Empty!</h6>
-    }
     return (
-      <div className="container w-75">
+      <div className="container w-75 p-3 my-3 bg-light">
         <h5 className="bg-light">Your Cart</h5>
         <form id="addToCart" onSubmit={this.handleSubmit}>
           <div className="form-row offset-sm-1 col-sm-11 text-center">
