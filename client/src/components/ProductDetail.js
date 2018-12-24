@@ -12,17 +12,23 @@ class ProductDetail extends React.Component{
       return null
     }
     return (
-      <div className="container w-75 p-3 my-3 bg-light">
-        <img className="productImage" src={product.photo} />
-        <ul>
-          <li><strong>{product.name}</strong></li>
-          <li><em>{product.description}</em></li>
-          <li>${product.price}</li>
-        </ul>
+      <div className="container w-75 p-5 my-3 bg-white">
+        <div className="card-deck">
+        <div className="card border-white mb-3" style={{maxWidth: '20rem'}}>
+            <div className="card-body text-dark">
+              <img className="card-img-top" src={product.photo} alt="Card image cap" />
+            </div>
+        </div>
+        <div className="card border-white mb-3" style={{maxWidth: '40rem'}}>
         <form id="addToCart" onSubmit={this.handleSubmit}>
-          <p><b>Quantity: </b><input value={this.state.quantity} onChange={this.handleChange} name="quantity" /></p>
+          <h4 className="card-title p-3">{product.name}</h4>
+          <p className="card-text px-3"><em>{product.description}</em></p>
+          <p className="card-text px-3"><strong>Price:</strong> ${product.price}</p>
+          <p className="px-3"><strong>Quantity: </strong><input value={this.state.quantity} onChange={this.handleChange} name="quantity" /></p>
           <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
         </form>
+        </div>
+        </div>
       </div>
     )
   }
@@ -80,3 +86,18 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)
+
+/*
+      <div className="p-3 my-3 bg-white">
+        <img className="productImage" src={product.photo} />
+        <ul>
+          <li><strong>{product.name}</strong></li>
+          <li><em>{product.description}</em></li>
+          <li>${product.price}</li>
+        </ul>
+        <form id="addToCart" onSubmit={this.handleSubmit}>
+          <p><b>Quantity: </b><input value={this.state.quantity} onChange={this.handleChange} name="quantity" /></p>
+          <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
+        </form>
+      </div>
+*/

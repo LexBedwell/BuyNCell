@@ -1,14 +1,21 @@
 .bg {
   background-image: url("leekNotCelery.jpg");
-  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 100%;
 }
 
-.productImage {
-  height: 200px;
-  width: 200px;
+.container-fluid {
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto
+}
+
+.card-img-top {
+  max-height: 200px;
+  max-width: 20rem;
 }
 
 .title {
