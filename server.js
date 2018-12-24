@@ -12,14 +12,14 @@ try {
 
 const PORT = process.env.PORT || 3000
 
-app.use(bodyParser({limit: '50mb'}))
+app.use(bodyParser({limit: '5mb'}))
 app.use(bodyParser())
 app.use(express.static('./client/public'))
 
 app.use('/api', require('./api'))
 
 app.use((err, req, res, next) => {
-  console.log(err.message)
+  console.log('error: ', err.message)
   res.status(500).send({ error: err.message })
 })
 
