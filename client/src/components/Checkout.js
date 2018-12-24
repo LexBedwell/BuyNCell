@@ -17,7 +17,7 @@ class Checkout extends React.Component{
     return (
       <div className="container w-75 p-3 my-3 bg-white">
         <h5>Order Summary</h5>
-        <div className="row offset-sm-1 col-sm-11 pt-2 pb-1 text-center">
+        <div className="row pt-2 pb-1 text-center">
           <div className="col-sm-4 text-left">
             <strong>Name</strong>
           </div>
@@ -32,7 +32,7 @@ class Checkout extends React.Component{
           </div>
         </div>
         {this.props.lineItems.map( lineItem => (
-          <div key={lineItem.id} className="row offset-sm-1 col-sm-11 text-center">
+          <div key={lineItem.id} className="row text-center">
             <div className="col-sm-4 text-left">
               {lineItem.product.name}
             </div>
@@ -47,8 +47,8 @@ class Checkout extends React.Component{
             </div>
           </div>
         ))}
-        <div className="row offset-sm-1 col-sm-11 text-center">
-          <div className="col-sm-7 p-2 text-left">
+        <div className="row text-center">
+          <div className="col-sm-7 py-2 text-left">
             <strong>Grand Total</strong>
           </div>
           <div className="col-sm-4">
@@ -57,37 +57,37 @@ class Checkout extends React.Component{
         </div>
         <h5 className="mt-4">Shipping Information</h5>
         <form id="addToCart" onSubmit={this.handleSubmit}>
-          <div className="form-group row offset-sm-1 col-sm-11">
+          <div className="form-group row">
             <label className="col-sm-3 col-form-label">Name: </label>
             <div className="col-sm-9">
               <input className="form-control" type="text" value={this.state.addressName} onChange={this.handleChange} name="addressName" />
             </div>
           </div>
-          <div className="form-group row offset-sm-1 col-sm-11">
+          <div className="form-group row ">
             <label className="col-sm-3 col-form-label">Address: </label>
             <div className="col-sm-9">
               <input className="form-control" type="text" value={this.state.addressLine} onChange={this.handleChange} name="addressLine" />
             </div>
           </div>
-          <div className="form-group row offset-sm-1 col-sm-11">
+          <div className="form-group row">
             <label className="col-sm-3 col-form-label">City: </label>
             <div className="col-sm-9">
               <input className="form-control" type="text" value={this.state.addressCity} onChange={this.handleChange} name="addressCity" />
             </div>
           </div>
-          <div className="form-group row offset-sm-1 col-sm-11">
+          <div className="form-group row">
             <label className="col-sm-3 col-form-label">State: </label>
             <div className="col-sm-9">
               <input className="form-control" type="text" value={this.state.addressState} onChange={this.handleChange} name="addressState" />
             </div>
           </div>
-          <div className="form-group row offset-sm-1 col-sm-11">
+          <div className="form-group row">
             <label className="col-sm-3 col-form-label">Zip Code: </label>
             <div className="col-sm-9">
               <input className="form-control" type="text" value={this.state.addressZip} onChange={this.handleChange} name="addressZip" />
             </div>
           </div>
-          <div className="form-group row offset-sm-1 col-sm-11">
+          <div className="form-group row">
             <div className="offset-sm-6 col-sm-6">
               <button type="submit" className="btn btn-outline-success">Submit Order</button>
             </div>
