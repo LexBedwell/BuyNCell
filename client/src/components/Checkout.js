@@ -15,10 +15,10 @@ class Checkout extends React.Component{
       return <h6>Cart Empty!</h6>
     }
     return (
-      <div className="container w-75 p-3 my-3 bg-light">
-        <h5 className="bg-light">Order Summary</h5>
-        <div className="row offset-sm-1 col-sm-11 text-center">
-          <div className="col-sm-4">
+      <div className="container w-75 p-3 my-3 bg-white">
+        <h5>Order Summary</h5>
+        <div className="row offset-sm-1 col-sm-11 pt-2 pb-1 text-center">
+          <div className="col-sm-4 text-left">
             <strong>Name</strong>
           </div>
           <div className="col-sm-2">
@@ -48,14 +48,14 @@ class Checkout extends React.Component{
           </div>
         ))}
         <div className="row offset-sm-1 col-sm-11 text-center">
-          <div className="col-sm-7 bg-light text-left">
+          <div className="col-sm-7 p-2 text-left">
             <strong>Grand Total</strong>
           </div>
-          <div className="col-sm-4 bg-light">
+          <div className="col-sm-4">
             <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
           </div>
         </div>
-        <h5 className="bg-light mt-4">Shipping Information</h5>
+        <h5 className="mt-4">Shipping Information</h5>
         <form id="addToCart" onSubmit={this.handleSubmit}>
           <div className="form-group row offset-sm-1 col-sm-11">
             <label className="col-sm-3 col-form-label">Name: </label>

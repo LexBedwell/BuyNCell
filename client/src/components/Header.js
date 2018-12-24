@@ -11,9 +11,9 @@ class Header extends React.Component{
       return null
     }
     return (
-      <div className="container">
+      <div className="container-fluid p-3">
         <div className="row text-right">
-            <div className="dropdown p-2 col-2 align-self-center">
+            <div className="dropdown col-2 align-self-center">
               <button className="btn btn-light btn-sm dropdown-toggle float-left" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</button>
               <div className="dropdown-menu dropdown-primary">
                 <Link className ="dropdown-item" to="/">Home</Link>

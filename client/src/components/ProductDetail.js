@@ -12,7 +12,7 @@ class ProductDetail extends React.Component{
       return null
     }
     return (
-      <div className="container w-75 p-3 my-3 bg-white">
+      <div className="p-3 my-3 bg-white">
         <img className="productImage" src={product.photo} />
         <ul>
           <li><strong>{product.name}</strong></li>
