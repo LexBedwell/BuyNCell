@@ -10,7 +10,6 @@ class Header extends React.Component{
     if (!this.props){
       return null
     }
-    console.log(this.props.auth.githubUserId)
     return (
       <div className="container-fluid p-3">
         <div className="row text-right">
