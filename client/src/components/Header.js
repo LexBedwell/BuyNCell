@@ -10,6 +10,7 @@ class Header extends React.Component{
     if (!this.props){
       return null
     }
+    console.log(this.props.auth.githubUserId)
     return (
       <div className="container-fluid p-3">
         <div className="row text-right">
@@ -28,7 +29,7 @@ class Header extends React.Component{
                 }
                 <div className="dropdown-divider"></div>
                 {
-                  localStorage.getItem('token') ? (
+                  this.props.auth.githubUserId ? (
                     <button className="dropdown-item" onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button>
                   ) : (
                     <a href="/api/auth/github" className="dropdown-item">Login with Github</a>
@@ -37,7 +38,7 @@ class Header extends React.Component{
               </div>
             </div>
             {
-                  localStorage.getItem('token') ? (
+                  this.props.auth.githubUserId ? (
                     <div className="col-10 align-self-center">
                     <h6>Hello <strong>{this.props.auth.githubUserId}</strong>!</h6>
                     </div>
