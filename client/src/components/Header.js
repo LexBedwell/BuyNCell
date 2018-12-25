@@ -20,7 +20,7 @@ class Header extends React.Component{
                 <Link className ="dropdown-item" to="/products">Products</Link>
                 <Link className="dropdown-item" to="/cart">Cart</Link>
                 {
-                  localStorage.getItem('token') ? (
+                  this.props.auth.githubUserId ? (
                     <Link className="dropdown-item" to="/orderhistory">Orders</Link>
                     ) : (
                     ''
