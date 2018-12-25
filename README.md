@@ -1,4 +1,4 @@
-# Buy and Cel
+# Buy and Cell
 Fully functional e-commerce website selling celery. 
 
-[Demo](https://celery-store.herokuapp.com)
+[Demo here.](https://celery-store.herokuapp.com)
