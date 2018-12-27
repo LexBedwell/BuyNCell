@@ -89,7 +89,7 @@ class Checkout extends React.Component{
           </div>
           <div className="form-group row">
             <div className="offset-sm-6 col-sm-6">
-              <button type="submit" className="btn btn-outline-success" disabled = {(!this.state.addressName || !this.state.addressLine || this.state.addressCity || !this.state.addressState || !this.state.addressZip)}>Submit Order</button>
+              <button type="submit" className="btn btn-outline-success" disabled = {(!this.state.addressName || !this.state.addressLine || !this.state.addressCity || !this.state.addressState || !this.state.addressZip)}>Submit Order</button>
             </div>
           </div>
         </form>
