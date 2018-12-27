@@ -24,7 +24,7 @@ class ProductDetail extends React.Component{
           <h4 className="card-title p-3">{product.name}</h4>
           <p className="card-text px-3"><em>{product.description}</em></p>
           <p className="card-text px-3"><strong>Price:</strong> ${product.price}</p>
-          <p className="px-3"><strong>Quantity: </strong><input value={this.state.quantity} onChange={this.handleChange} name="quantity" /></p>
+          <p className="px-3"><strong>Quantity: </strong><input value={this.state.quantity} onChange={this.handleChange} name="quantity" type="number" /></p>
           <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
         </form>
         </div>

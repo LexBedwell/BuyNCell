@@ -19,7 +19,7 @@ class Cart extends React.Component {
             <div className="col-sm-5 my-1 text-left">
               <strong>Name</strong>
             </div>
-            <div className="col-sm-1 my-1">
+            <div className="col-sm-2 my-1">
               <strong>Quantity</strong>
             </div>
             <div className="col-sm-2 my-1">
@@ -28,7 +28,7 @@ class Cart extends React.Component {
             <div className="col-sm-2 my-1">
               <strong>Total</strong>
             </div>
-            <div className="col-sm-2 my-1">
+            <div className="col-sm-1  my-1">
               <strong>Remove</strong>
             </div>
           </div>
@@ -39,16 +39,16 @@ class Cart extends React.Component {
                 <div className="col-sm-5 my-1">
                   {lineItem.product.name}
                 </div>
-                <div className="col-sm-1 my-1 text-center">
-                  <input className="form-control" type="text" value={lineItem.quantity} onChange={this.handleChange} name={index.toString()} />
+                <div className="col-sm-2 my-1 text-center">
+                  <input className="form-control" type="number" value={lineItem.quantity} onChange={this.handleChange} name={index.toString()} />
                 </div>
                 <div className="col-sm-2 my-1 text-center">
                   ${lineItem.product.price}
                 </div>
                 <div className="col-sm-2 my-1 text-center">
-                  ${(lineItem.quantity * lineItem.product.price).toFixed(2)}
+                  ${lineItem.quantity ? (lineItem.quantity * lineItem.product.price).toFixed(2) : 0}
                 </div>
-                <div className="col-sm-2 my-1 text-center">
+                <div className="col-sm-1 my-1 text-center">
                   <input type="button" className="btn btn-outline-danger btn-sm" value="X" onClick={() => {this.deleteLineItem(lineItem)}} />
                 </div>
               </div>
@@ -83,7 +83,9 @@ class Cart extends React.Component {
   }
   handleChange(ev){
     let newLineItems = this.state.lineItems
-    newLineItems[parseInt(ev.target.name, 10)].quantity = parseInt(ev.target.value, 10)
+    if (parseInt(ev.target.value, 10)){ 
+      newLineItems[parseInt(ev.target.name, 10)].quantity = parseInt(ev.target.value, 10)
+    }
     this.setState({
       lineItems: newLineItems
     })
