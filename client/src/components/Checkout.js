@@ -60,36 +60,36 @@ class Checkout extends React.Component{
           <div className="form-group row">
             <label className="col-sm-3 col-form-label">Name: </label>
             <div className="col-sm-9">
-              <input className="form-control" type="text" value={this.state.addressName} onChange={this.handleChange} name="addressName" />
+              <input className="form-control" type="text" value={this.state.addressName} onChange={this.handleChange} name="addressName" maxLength="40" />
             </div>
           </div>
           <div className="form-group row ">
             <label className="col-sm-3 col-form-label">Address: </label>
             <div className="col-sm-9">
-              <input className="form-control" type="text" value={this.state.addressLine} onChange={this.handleChange} name="addressLine" />
+              <input className="form-control" type="text" value={this.state.addressLine} onChange={this.handleChange} name="addressLine" maxLength="40" />
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 col-form-label">City: </label>
             <div className="col-sm-9">
-              <input className="form-control" type="text" value={this.state.addressCity} onChange={this.handleChange} name="addressCity" />
+              <input className="form-control" type="text" value={this.state.addressCity} onChange={this.handleChange} name="addressCity" maxLength="20" />
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 col-form-label">State: </label>
             <div className="col-sm-9">
-              <input className="form-control" type="text" value={this.state.addressState} onChange={this.handleChange} name="addressState" />
+              <input className="form-control" type="text" value={this.state.addressState} onChange={this.handleChange} name="addressState" maxLength="20" />
             </div>
           </div>
           <div className="form-group row">
             <label className="col-sm-3 col-form-label">Zip Code: </label>
             <div className="col-sm-9">
-              <input className="form-control" type="text" value={this.state.addressZip} onChange={this.handleChange} name="addressZip" />
+              <input className="form-control" type="text" value={this.state.addressZip} onChange={this.handleChange} name="addressZip" maxLength="10" />
             </div>
           </div>
           <div className="form-group row">
             <div className="offset-sm-6 col-sm-6">
-              <button type="submit" className="btn btn-outline-success">Submit Order</button>
+              <button type="submit" className="btn btn-outline-success" disabled = {(!this.state.addressName || !this.state.addressLine || this.state.addressCity || !this.state.addressState || !this.state.addressZip)}>Submit Order</button>
             </div>
           </div>
         </form>

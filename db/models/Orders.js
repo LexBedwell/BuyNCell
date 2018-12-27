@@ -18,46 +18,56 @@ const Orders = conn.define('order', {
   },
   addressName: {
     type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: '',
     validate: {
       len: {
-        args: [4, 40],
-        msg: 'Must be between four to forty characters.'
+        args: [0, 40],
+        msg: 'Maximum forty characters allowed.'
       }
     }
   },
   addressLine: {
     type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: '',
     validate: {
       len: {
-        args: [4, 40],
-        msg: 'Must be between four to forty characters.'
+        args: [0, 40],
+        msg: 'Maximum forty characters allowed.'
       }
     }
   },
   addressCity: {
     type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: '',
     validate: {
       len: {
-        args: [2, 20],
-        msg: 'Must be between two to twenty characters.'
+        args: [0, 20],
+        msg: 'Maximum twenty characters allowed.'
       }
     }
   },
   addressState: {
     type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: '',
     validate: {
       len: {
-        args: [2, 20],
-        msg: 'Must be between two to twenty characters.'
+        args: [0, 20],
+        msg: 'Maximum twenty characters allowed.'
       }
     }
   },
   addressZip: {
     type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: '',
     validate: {
       len: {
-        args: [5, 10],
-        msg: 'Must be between five to ten characters.'
+        args: [0, 10],
+        msg: 'Maximum ten characters allowed.'
       }
     }
   }
