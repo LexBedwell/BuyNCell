@@ -46,7 +46,7 @@ class ProductDetail extends React.Component{
   handleSubmit(ev){
     ev.preventDefault()
     let newCart = this.props.cart
-    let cartQuantity = parseInt(this.state.quantity, 10)
+    let cartQuantity = this.state.quantity
     let productId = this.props.product.id
     let matchingLineItemIndex = this.props.cart.lineItems.findIndex( lineItem => { return lineItem.productId === productId})
     if (matchingLineItemIndex !== -1){

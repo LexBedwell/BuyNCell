@@ -83,8 +83,8 @@ class Cart extends React.Component {
   }
   handleChange(ev){
     let newLineItems = this.state.lineItems
-    if (parseInt(ev.target.value, 10)){ 
-      newLineItems[parseInt(ev.target.name, 10)].quantity = parseInt(ev.target.value, 10)
+    if (ev.target.value){ 
+      newLineItems[parseInt(ev.target.name, 10)].quantity = ev.target.value
     }
     this.setState({
       lineItems: newLineItems
