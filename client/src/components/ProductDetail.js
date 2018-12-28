@@ -37,11 +37,13 @@ class ProductDetail extends React.Component{
     this.state = {
         quantity: 0
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange(ev){
-    this.setState({[ev.target.name]: ev.target.value});
+    if (ev.target.value >= 0){
+      this.setState({[ev.target.name]: ev.target.value})
+    }
   }
   handleSubmit(ev){
     ev.preventDefault()
@@ -86,18 +88,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)
-
-/*
-      <div className="p-3 my-3 bg-white">
-        <img className="productImage" src={product.photo} />
-        <ul>
-          <li><strong>{product.name}</strong></li>
-          <li><em>{product.description}</em></li>
-          <li>${product.price}</li>
-        </ul>
-        <form id="addToCart" onSubmit={this.handleSubmit}>
-          <p><b>Quantity: </b><input value={this.state.quantity} onChange={this.handleChange} name="quantity" /></p>
-          <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
-        </form>
-      </div>
-*/

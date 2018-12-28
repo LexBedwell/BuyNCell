@@ -55,10 +55,10 @@ class Cart extends React.Component {
             )
           })}
           <div className="form-row offset-sm-1 col-sm-11 my-1">
-            <div className="col-sm-7 text-left">
+            <div className="col-sm-9 text-left">
               <strong>Grand Total</strong>
             </div>
-            <div className="col-sm-4 text-center">
+            <div className="col-sm-2 text-center">
               <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
             </div>
           </div>
@@ -83,8 +83,10 @@ class Cart extends React.Component {
   }
   handleChange(ev){
     let newLineItems = this.state.lineItems
-    if (parseInt(ev.target.value, 10)) {
+    if ( (parseInt(ev.target.value, 10)) >= 0 ) {
       newLineItems[parseInt(ev.target.name, 10)].quantity = parseInt(ev.target.value, 10)
+    } else {
+      newLineItems[parseInt(ev.target.name, 10)].quantity = ''
     }
     this.setState({
       lineItems: newLineItems
@@ -110,6 +112,12 @@ class Cart extends React.Component {
   }
   syncCartWithServer(){
     let newCart = this.state
+    newCart.lineItems.forEach( elem => {
+      if (!elem.quantity) {
+        axios.delete(`/api/lineitems/${elem.id}`)
+      }
+    })
+    newCart.lineItems = this.state.lineItems.filter( elem => elem.quantity)
     const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
     newCartKeys.forEach( key => newCart[key] = this.props[key])
     this.props.updateCart(newCart)

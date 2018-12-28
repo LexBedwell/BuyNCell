@@ -12,7 +12,7 @@ class Checkout extends React.Component{
       return null
     }
     if (this.props.lineItems.length === 0){
-      return <h6>Cart Empty!</h6>
+      return <h3 className="p-4">Cart Empty!</h3>
     }
     return (
       <div className="container w-75 p-3 my-3 bg-white">
