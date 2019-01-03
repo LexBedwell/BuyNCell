@@ -22,6 +22,10 @@ body, html {
   max-width: 20rem;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .title {
   color: rgb(120,120,120);
 }
