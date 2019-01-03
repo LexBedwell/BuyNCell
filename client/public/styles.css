@@ -8,6 +8,7 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: auto;
 }
 
 .container-fluid {
@@ -24,6 +25,10 @@ body, html {
 
 .clickable {
   cursor: pointer;
+}
+
+.container {
+  min-width: 950px;
 }
 
 .title {
