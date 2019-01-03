@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 class ProductList extends React.Component{
   render(){
     return (
-      <div className="container w-75 px-5 pt-4 listWidth">
+      <div className="container w-75 px-5 pt-4">
         <h4 className="text-dark"><strong>Categories</strong></h4>
             {this.props.categories.map( category => (
               <div key={category.id} className="pt-3">

@@ -27,7 +27,7 @@ body, html {
   cursor: pointer;
 }
 
-.listWidth {
+.container {
   min-width: 950px;
 }
 
