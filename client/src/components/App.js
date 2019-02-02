@@ -24,7 +24,6 @@ class App extends React.Component{
         <div>
           <Route path="/" component={Header} />
           <Route exact path="/" component={Main} />
-          <Route path="/home" component={Main} />
           <Route path="/cart" component={Cart} />
           <Route path="/categories/:categoryId" component={ProductList} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />

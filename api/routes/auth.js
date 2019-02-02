@@ -28,13 +28,11 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//Get Facebook Code
 router.get('/facebook', async (req, res, next) => {
   const url = `https://www.facebook.com/v3.2/dialog/oauth?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=${process.env.FACEBOOK_REDIRECT_URI}&state=${process.env.FACEBOOK_STATE}&scope=email`
   res.redirect(url)
 })
 
-//Exchange Facebook Code for Access Tokens and Facebook Email, send user token for our site
 router.get('/facebook/callback', async (req, res, next) => {
   try {
     let response = await axios.get(`https://graph.facebook.com/v3.2/oauth/access_token?client_id=${process.env.FACEBOOK_CLIENT_ID}&redirect_uri=${process.env.FACEBOOK_REDIRECT_URI}&client_secret=${process.env.FACEBOOK_SECRET}&code=${req.query.code}`)
@@ -66,7 +64,7 @@ router.get('/facebook/callback', async (req, res, next) => {
 
 module.exports = router
 
-//GITHUT OAuth
+//GITHUB OAuth -- LEGACY CODE
 /*
 router.get('/github', (req, res, next) => {
   const url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.GITHUB_REDIRECT_URI}`
