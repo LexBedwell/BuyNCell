@@ -12,5 +12,6 @@ export const loadProducts = () => {
     axios.get('/api/products')
       .then(response => response.data)
       .then(products => dispatch(_loadProducts(products)))
+      .catch(err => console.log('Unable to load products: ', err.message))
   }
 }

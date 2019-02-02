@@ -12,5 +12,6 @@ export const loadCategories = () => {
     axios.get('/api/categories')
       .then(response => response.data)
       .then(categories => dispatch(_loadCategories(categories)))
+      .catch(err => console.log('Unable to load categories: ', err.message))
   }
 }

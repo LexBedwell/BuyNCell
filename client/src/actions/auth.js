@@ -16,5 +16,6 @@ export const setAuth = ({token}) => {
     })
       .then(response => response.data)
       .then(auth => dispatch(_setAuth(auth)))
+      .catch(err => console.log('Unable to authenticate user: ', err.message))
   }
 }

@@ -6,7 +6,11 @@
       const token = window.location.search
       if (token){
           window.localStorage.setItem('token', token)
-          window.location.search = ''
+          let newUrl = window.location.hostname
+          if(newUrl.indexOf('localhost') !== -1){
+            newUrl = 'http://localhost:3000/'
+          }
+          window.location.href = newUrl
       }
     </script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">

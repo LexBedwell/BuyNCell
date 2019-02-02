@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import queryString from 'query-string'
 
 import {_setAuth} from '../actions/auth'
+import {setCart} from '../actions/cart'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Header extends React.Component{
@@ -20,7 +22,7 @@ class Header extends React.Component{
                 <Link className ="dropdown-item" to="/products">Products</Link>
                 <Link className="dropdown-item" to="/cart">Cart</Link>
                 {
-                  this.props.auth.githubUserId ? (
+                  this.props.auth.email ? (
                     <Link className="dropdown-item" to="/orderhistory">Orders</Link>
                     ) : (
                     ''
@@ -28,18 +30,18 @@ class Header extends React.Component{
                 }
                 <div className="dropdown-divider"></div>
                 {
-                  this.props.auth.githubUserId ? (
+                  this.props.auth.email ? (
                     <button className="dropdown-item" onClick={() => {this.props.logout(); this.props.history.push('/')}}>Logout</button>
                   ) : (
-                    <a href="/api/auth/github" className="dropdown-item">Login with Github</a>
+                    <a href="/api/auth/facebook" className="dropdown-item">Login with Facebook</a>
                   )
                 }
               </div>
             </div>
             {
-                  this.props.auth.githubUserId ? (
+                  this.props.auth.email ? (
                     <div className="col-10 align-self-center">
-                    <h6>Hello <strong>{this.props.auth.githubUserId}</strong>!</h6>
+                    <h6>Hello <strong>{this.props.auth.email}</strong>!</h6>
                     </div>
                   ) : (
                     ''
@@ -60,6 +62,7 @@ const mapDispatchToProps = (dispatch) => {
     logout: () => {
       dispatch(_setAuth({}))
       window.localStorage.removeItem('token')
+      dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
     }
   }
 }

@@ -1,6 +1,6 @@
 module.exports = [
   {
-    githubUserId: 'LexBedwell',
+    email: 'lexbedwell@gmail.com',
     addressName: 'Alexander Bedwell',
     addressLine: '180 Park Row #3C',
     addressCity: 'New York',

@@ -42,7 +42,7 @@ router.get('/cart', async (req, res, next) => {
   try {
     let cart = await models.Orders.findOne({ where: attr, include: [{model: models.LineItems, include: models.Products }] })
     if (!cart){
-      const createdCart = await models.Orders.create({userId: req.user.id, status: 'cart', addressName: req.user.addressName, addressLine: req.user.addressLine, addressCity: req.user.addressCity, addressState: req.user.addressState, addressZip: req.user.addressZip})
+      const createdCart = await models.Orders.create({userId: req.user.id, status: 'cart'})
       cart = await models.Orders.findOne({ where: {id: createdCart.id}, include: [{model: models.LineItems, include: models.Products }] })
     }
   res.send(cart);
@@ -72,6 +72,16 @@ router.put('/', async (req, res, next) => {
 
 router.put('/submit', async (req, res, next) => {
   try {
+    if (!req.body.userId){
+      let searchUser = await models.Users.findOrCreate({ where: {email: req.body.email} })
+      await models.Orders.update({
+        userId: searchUser[0].id
+      }, {
+        where: {
+          id: req.body.id
+        }
+      })
+    }
     req.body.lineItems.forEach(async lineItem => {
       await models.LineItems.update({
         quantity: lineItem.quantity
