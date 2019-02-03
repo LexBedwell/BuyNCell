@@ -2,13 +2,16 @@
   "name": "buynCelVer2",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "8.11.2",
+    "npm": "6.x"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "dev": "webpack --watch --mode=development & nodemon server",
-    "start": "node server.js",
-    "postinstall": "npm run webpack"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

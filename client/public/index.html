@@ -9,6 +9,8 @@
           let newUrl = window.location.hostname
           if(newUrl.indexOf('localhost') !== -1){
             newUrl = 'http://localhost:3000/'
+          } else {
+            newUrl = 'https://celery-store.herokuapp.com/'
           }
           window.location.href = newUrl
       }
