@@ -13,9 +13,9 @@ class Cart extends React.Component {
     }
     return (
       <div className="container w-75 p-3 my-4 bg-white">
-        <h5>Your Cart</h5>
+        <h5><strong>Your Cart</strong></h5>
         <form className="pt-3" id="addToCart" onSubmit={this.handleSubmit}>
-          <div className="form-row offset-sm-1 col-sm-11 text-center">
+          <div className="form-row offset-sm-1 col-sm-11 text-center mb-4">
             <div className="col-sm-5 my-1 text-left">
               <strong>Name</strong>
             </div>
@@ -54,7 +54,7 @@ class Cart extends React.Component {
               </div>
             )
           })}
-          <div className="form-row offset-sm-1 col-sm-11 my-1">
+          <div className="form-row offset-sm-1 col-sm-11 mb-1 mt-4">
             <div className="col-sm-9 text-left">
               <strong>Grand Total</strong>
             </div>
