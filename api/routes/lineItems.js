@@ -4,7 +4,6 @@ const router = express.Router()
 const {models} = require('../../db/')
 
 router.put('/', (req, res, next) => {
-  console.log('req.body is: ', req.body)
   const {cartId, productId, quantity} = req.body
   models.LineItems.create({productId: productId, orderId: cartId, quantity: quantity})
     .then( newLine => models.LineItems.findOne({ where: {id: newLine.id}, include: [models.Products]}) )

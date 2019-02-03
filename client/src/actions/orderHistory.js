@@ -16,5 +16,6 @@ export const loadOrderHistory = ({token}) => {
     })
       .then(response => response.data)
       .then(orderHistory => dispatch(_loadOrderHistory(orderHistory)))
+      .catch(err => console.log('Unable to load order history: ', err.message))
   }
 }

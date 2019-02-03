@@ -2,10 +2,16 @@ const Sequelize = require('sequelize')
 const conn = require('../connection')
 
 const Users = conn.define('users', {
-  githubUserId: {
+  email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    validate: {
+      isEmail: true,
+      len: {
+        args: [4, 40],
+        msg: 'Must be an email address between four to forty characters.'
+      }
+    }
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
