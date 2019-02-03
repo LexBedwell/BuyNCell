@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const nodemailer = require('nodemailer')
 
 const {Op} = require('sequelize')
 
@@ -72,6 +73,8 @@ router.put('/', async (req, res, next) => {
 
 router.put('/submit', async (req, res, next) => {
   try {
+    let orderEmail
+    let orderId = req.body.id
     if (!req.body.userId){
       let searchUser = await models.Users.findOrCreate({ where: {email: req.body.email} })
       await models.Orders.update({
@@ -81,6 +84,10 @@ router.put('/submit', async (req, res, next) => {
           id: req.body.id
         }
       })
+      orderEmail = req.body.email
+    } else {
+      let searchUser = await models.Users.findByPk(req.body.userId)
+      orderEmail = searchUser.email
     }
     req.body.lineItems.forEach(async lineItem => {
       await models.LineItems.update({
@@ -102,6 +109,32 @@ router.put('/submit', async (req, res, next) => {
       }, {
       where: {
         id: req.body.id
+      }
+    })
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.MAILER_USER,
+        pass: process.env.MAILER_PASS
+      }
+    })
+    let mailOptions = {
+      from: 'Celery Store',
+      to: orderEmail,
+      subject: `Thank you for your order from Celery Store!`,
+      html: `<html><p>Hello ${orderEmail}!</p>
+      <p>Thank you for your order from Celery Store!</p>
+      <p>Your order number is ${orderId}.</p>
+      <p>Please visit <a href="https://celery-store.herokuapp.com">Celery Store</a> again for all your celery needs!</p>
+      <p>**THIS IS A TEST EMAIL SO DON'T WORRY, YOU HAVEN'T BEEN CHARGED!**</p>  
+      </html>`
+    }
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Message sent to ', orderEmail);
       }
     })
     res.sendStatus(200)
