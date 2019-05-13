@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const nodemailer = require('nodemailer')
 
 const {Op} = require('sequelize')
 
 const {models} = require('../../db/')
+const {sendConfirmationEmail} = require('../email/sendEmail')
 
 router.get('/', (req, res, next) => {
   models.Orders.findAll({
@@ -111,32 +111,7 @@ router.put('/submit', async (req, res, next) => {
         id: req.body.id
       }
     })
-    let transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        user: process.env.MAILER_USER,
-        pass: process.env.MAILER_PASS
-      }
-    })
-    let mailOptions = {
-      from: 'Celery Store',
-      to: orderEmail,
-      subject: `Thank you for your order from Celery Store!`,
-      html: `<html><p>Hello ${orderEmail}!</p>
-      <p>Thank you for your order from Celery Store!</p>
-      <p>Your order number is ${orderId}.</p>
-      <p>Please visit <a href="https://celery-store.herokuapp.com">Celery Store</a> again for all your celery needs!</p>
-      <p>**THIS IS A TEST EMAIL SO DON'T WORRY, YOU HAVEN'T BEEN CHARGED!**</p>  
-      </html>`
-    }
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log('Message sent to ', orderEmail);
-      }
-    })
+    sendConfirmationEmail(orderId, orderEmail)
     res.sendStatus(200)
   } catch (err) {
     next(err)
