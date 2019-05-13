@@ -24,7 +24,9 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(PORT, () => {
-  console.log('Now listening on', PORT)
+  console.log('Now listening on port ', PORT)
 })
 
 syncAndSeed()
+
+module.exports =  { app }
