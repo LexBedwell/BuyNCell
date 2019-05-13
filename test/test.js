@@ -21,20 +21,19 @@ describe('Categories Route', () => {
 
 })
 
-describe('Products Route', () => {
+// describe('Products Route', () => {
 
-    describe('GET /products', () => {
-        chai.request(server)
-            .get('api/products/1')
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.should.be.a('object')
-                res.body.should.have.property('name').eql('Regular Celery')
-            })
-            done()
-    })
+//     describe('GET /products', () => {
+//         chai.request(server)
+//             .get('api/products/1')
+//             .end((err, res) => {
+//                 res.should.have.status(200)
+//                 res.body.should.be.a('object')
+//                 res.body.should.have.property('name').eql('Regular Celery')
+//             })
+//             done()
+//     })
 
-    //Test orders route
+// })
 
-})
-
+    //Test orders route (history, cart)
