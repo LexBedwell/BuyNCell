@@ -31,7 +31,6 @@ const syncAndSeed = async () => {
     await preProducts.forEach( product => product.addCategories(pre))
     const sampleUsers = await Promise.all(users.map( user => Users.create(user)))
     const sampleOrders = await Promise.all(sampleUsers.map( user => Orders.create({userId: user.id, addressName: user.addressName, addressLine: user.addressLine, addressCity: user.addressCity, addressState: user.addressState, addressZip: user.addressZip})))
-    //regProducts.concat(preProducts).forEach( product => LineItems.create({productId: product.id, orderId: sampleOrders[0].id}))
     await Promise.all(regProducts.concat(preProducts).map( product => LineItems.create({productId: product.id, orderId: sampleOrders[0].id})))
     console.log('Databse syncAndSeed completed.')
   } catch (err) {

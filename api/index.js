@@ -21,5 +21,6 @@ router.use('/categories', require('./routes/categories'))
 router.use('/lineitems', require('./routes/lineItems'))
 router.use('/orders', require('./routes/orders'))
 router.use('/products', require('./routes/products'))
+router.use('/ping', require('./routes/ping'))
 
 module.exports = router
