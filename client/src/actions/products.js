@@ -7,11 +7,11 @@ export const _loadProducts = products => ({
   products
 })
 
-export const loadProducts = () => {
+export const loadProducts = (id) => {
   return (dispatch) => {
-    axios.get('/api/products')
+    axios.get(`/api/products/${id}`)
       .then(response => response.data)
       .then(products => dispatch(_loadProducts(products)))
-      .catch(err => console.log('Unable to load products: ', err.message))
+      .catch(err => console.log(`Unable to load product: ${id}. ${err.message}`))
   }
 }

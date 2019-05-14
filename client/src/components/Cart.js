@@ -96,7 +96,6 @@ class Cart extends React.Component {
     ev.preventDefault()
     this.syncCartWithServer()
     window.alert('Cart updated!')
-    //this.props.history.push(`/orderhistory`)
   }
   deleteLineItem(lineItem){
     const filteredLineItems = this.state.lineItems.filter( elem => elem.id !== lineItem.id)
