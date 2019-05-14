@@ -23,7 +23,6 @@ class App extends React.Component{
           <Route path="/" component={Header} />
           <Route exact path="/" component={Main} />
           <Route path="/cart" component={Cart} />
-          <Route path="/categories/:categoryId" component={ProductList} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/orderhistory" component={OrderHistory} />
