@@ -3,8 +3,8 @@ const router = express.Router()
 
 const {models} = require('../../db/')
 
-router.get('/', (req, res, next) => {
-  models.Products.findAll({include: [models.Categories], order: ['id']})
+router.get('/:id', (req, res, next) => {
+  models.Products.findByPk(req.params.id)
     .then((response) => res.send(response))
     .catch(next)
 })

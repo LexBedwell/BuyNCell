@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 
 const {syncAndSeed} = require('./db')
 
+syncAndSeed()
+
 try {
   Object.assign(process.env, require('./.env'))
 } catch (err){
@@ -24,9 +26,7 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(PORT, () => {
-  console.log('Now listening on port ', PORT)
+  console.log('Now listening on port', PORT)
 })
-
-syncAndSeed()
 
 module.exports =  { app }

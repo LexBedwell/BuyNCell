@@ -6,14 +6,6 @@ const {Op} = require('sequelize')
 const {models} = require('../../db/')
 const {sendConfirmationEmail} = require('../email/sendEmail')
 
-router.get('/', (req, res, next) => {
-  models.Orders.findAll({
-    include: [{model: models.LineItems, include: models.Products }],
-    order: [['createdAt', 'DESC']]
-  })
-    .then( response => res.send(response))
-})
-
 router.get('/history', (req, res, next) => {
   const attr = {
     userId: req.user.id,
@@ -117,5 +109,16 @@ router.put('/submit', async (req, res, next) => {
     next(err)
   }
 })
+
+//testing purposes only!
+/*
+router.get('/', (req, res, next) => {
+  models.Orders.findAll({
+    include: [{model: models.LineItems, include: models.Products }],
+    order: [['createdAt', 'DESC']]
+  })
+    .then( response => res.send(response))
+})
+*/
 
 module.exports = router

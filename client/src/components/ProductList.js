@@ -2,6 +2,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {loadCategories} from '../actions/categories'
+
 // eslint-disable-next-line react/prefer-stateless-function
 class ProductList extends React.Component{
   render(){
@@ -28,12 +30,23 @@ class ProductList extends React.Component{
       </div>
     )
   }
-}
-
-const mapStateToProps = ({categories, products}) => {
-  return {
-    categories, products
+  componentDidMount(){
+    this.props.init()
   }
 }
 
-export default connect(mapStateToProps)(ProductList)
+const mapStateToProps = ({categories}) => {
+  return {
+    categories
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    init: () => {
+      dispatch(loadCategories())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

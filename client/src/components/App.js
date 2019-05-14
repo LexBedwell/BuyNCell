@@ -12,8 +12,6 @@ import OrderHistory from './OrderHistory'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
 
-import {loadCategories} from '../actions/categories'
-import {loadProducts} from '../actions/products'
 import {setAuth} from '../actions/auth'
 import {setCart} from '../actions/cart'
 
@@ -25,7 +23,6 @@ class App extends React.Component{
           <Route path="/" component={Header} />
           <Route exact path="/" component={Main} />
           <Route path="/cart" component={Cart} />
-          <Route path="/categories/:categoryId" component={ProductList} />
           <Route path="/categories/:categoryId" component={CategoryDetail} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/orderhistory" component={OrderHistory} />
@@ -43,8 +40,6 @@ class App extends React.Component{
 const mapDispatchToProps = (dispatch) => {
   return {
     init: () => {
-      dispatch(loadProducts())
-      dispatch(loadCategories())
       dispatch(setAuth(queryString.parse(window.localStorage.getItem('token'))))
       dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
     }

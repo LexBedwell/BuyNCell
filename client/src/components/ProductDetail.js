@@ -3,11 +3,12 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import queryString from 'query-string'
 
+import {loadProducts} from '../actions/products'
 import {_setCart, setCart} from '../actions/cart'
 
 class ProductDetail extends React.Component{
   render(){
-    const {cart, product} = this.props
+    const product = this.props.products
     if (!product){
       return null
     }
@@ -49,7 +50,7 @@ class ProductDetail extends React.Component{
     ev.preventDefault()
     let newCart = this.props.cart
     let cartQuantity = parseInt(this.state.quantity, 10)
-    let productId = this.props.product.id
+    let productId = this.props.products.id
     let matchingLineItemIndex = this.props.cart.lineItems.findIndex( lineItem => { return lineItem.productId === productId})
     if (matchingLineItemIndex !== -1){
       newCart.lineItems[matchingLineItemIndex].quantity = newCart.lineItems[matchingLineItemIndex].quantity + cartQuantity
@@ -63,14 +64,16 @@ class ProductDetail extends React.Component{
         .then( () => this.props.history.push(`/cart`))
     }
   }
+  componentDidMount(){
+    this.props.init()
+  }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const product = state.products.filter( product => product.id === ownProps.match.params.productId * 1)
-  return {cart: state.cart, product: product[0]}
+const mapStateToProps = (products) => {
+  return products
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateCart: (newCart) => {
       if (newCart.userId){
@@ -83,6 +86,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addLineItem: (cart) => {
       return axios.put('/api/lineItems', cart)
+    },
+    init: () => {
+      dispatch(loadProducts(ownProps.match.params.productId))
     }
   }
 }
