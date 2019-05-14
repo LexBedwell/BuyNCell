@@ -70,8 +70,6 @@ class ProductDetail extends React.Component{
 }
 
 const mapStateToProps = (products) => {
-  //const product = state.products.filter( product => product.id === ownProps.match.params.productId * 1)
-  //return {cart: state.cart, product: product[0]}
   return products
 }
 
