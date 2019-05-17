@@ -11,6 +11,7 @@ import Main from './Main'
 import OrderHistory from './OrderHistory'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
+import OrderConfirmation from './OrderConfirmation'
 
 import {setAuth} from '../actions/auth'
 import {setCart} from '../actions/cart'
@@ -28,6 +29,7 @@ class App extends React.Component{
           <Route path="/orderhistory" component={OrderHistory} />
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:productId" component={ProductDetail} />
+          <Route path="/orderconfirmation/:orderId" component={OrderConfirmation} />
         </div>
       </HashRouter>
     )
@@ -47,4 +49,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(null, mapDispatchToProps)(App)
-

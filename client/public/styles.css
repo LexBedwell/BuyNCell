@@ -34,3 +34,7 @@ body, html {
 .title {
   color: rgb(60,60,60);
 }
+
+.centered {
+  text-align: center;
+}
