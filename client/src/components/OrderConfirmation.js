@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 class OrderConfirmation extends React.Component {
     render(){
@@ -12,14 +13,14 @@ class OrderConfirmation extends React.Component {
 
 const mapStateToProps = (orderConfirmation) => {
     return orderConfirmation
-  }
-  
-  const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-      init: () => {
-        dispatch(getOrderConfirmation(ownProps.match.params.orderId))
-      }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    init: () => {
+      dispatch(getOrderConfirmation(ownProps.match.params.orderId))
     }
   }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderConfirmation)

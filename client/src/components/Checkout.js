@@ -140,8 +140,8 @@ class Checkout extends React.Component{
       newCart.userId = this.props.auth.id
     }
     this.props.submitCart(newCart)
-    window.alert('Thank you! Your order has been submitted!')
-    this.props.history.push(`/`)
+    //window.alert('Thank you! Your order has been submitted!')
+    this.props.history.push(`orderconfirmation/${newCart.id}`)
   }
   componentWillReceiveProps(props){
     if (props){

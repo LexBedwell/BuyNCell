@@ -19,6 +19,21 @@ router.get('/history', (req, res, next) => {
     order: [['createdAt', 'DESC']]
   })
     .then( response => res.send(response))
+    .catch(next)
+})
+
+router.get('/orderconfirmation/:id', (req, res, next) => {
+  const attr = {
+    id: req.params.id,
+    status: {
+      [Op.or]: ['processing', 'completed', 'delivered']
+    }
+  }
+  models.Orders.findOne({
+    where: attr
+  })
+    .then( response => res.send({response: response.status}))
+    .catch(next)
 })
 
 router.get('/cart', async (req, res, next) => {
