@@ -13,7 +13,11 @@ class Checkout extends React.Component{
       return null
     }
     if (this.props.cart.lineItems.length === 0){
-      return <h3 className="p-4">Cart Empty!</h3>
+      return (
+        <div className="container w-75 p-3 my-3 bg-white">
+          <h6 className="title centered">Your cart is currently empty.</h6>
+        </div>
+      )
     }
     return (
       <div className="container w-75 p-3 my-3 bg-white">
@@ -131,7 +135,7 @@ class Checkout extends React.Component{
   handleChange(ev){
     this.setState({[ev.target.name]: ev.target.value});
   }
-  handleSubmit(ev){
+  async handleSubmit(ev){
     ev.preventDefault()
     let newCart = this.state
     let newCartKeys = ['id', 'lineItems']
@@ -139,8 +143,11 @@ class Checkout extends React.Component{
     if (this.props.auth.id){
       newCart.userId = this.props.auth.id
     }
-    this.props.submitCart(newCart)
-    //window.alert('Thank you! Your order has been submitted!')
+    try {
+      await this.props.submitCart(newCart)
+    } catch (err) {
+      console.log(`Unable to place order. ${err.message}`)
+    }
     this.props.history.push(`orderconfirmation/${newCart.id}`)
   }
   componentWillReceiveProps(props){

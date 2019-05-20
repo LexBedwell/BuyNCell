@@ -32,8 +32,8 @@ router.get('/orderconfirmation/:id', (req, res, next) => {
   models.Orders.findOne({
     where: attr
   })
-    .then( response => res.send({response: response.status}))
-    .catch(next)
+    .then( response => res.send({id: response.id}))
+    .catch( () => res.send({id: 'unable to retrieve order'}))
 })
 
 router.get('/cart', async (req, res, next) => {
