@@ -23,7 +23,7 @@ class Header extends React.Component{
                 <Link className="dropdown-item" to="/cart">Cart</Link>
                 {
                   this.props.auth.email ? (
-                    <Link className="dropdown-item" to="/orderhistory">Orders</Link>
+                    <Link className="dropdown-item" to="/orderhistory">My Orders</Link>
                     ) : (
                     ''
                     )

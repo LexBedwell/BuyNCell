@@ -11,22 +11,29 @@ class Orders extends React.Component{
         <h5 className="mt-4"><strong>Your Cart</strong></h5>
         <div className="row my-3">
           <div className="col-sm-8">
-            <strong>ID:</strong> {this.props.cart.id}
+            <strong>ID#:</strong> {this.props.cart.id}
           </div>
           <div className="col-sm-4">
             <strong>Status:</strong> {this.props.cart.status}
           </div>
         </div>
-        <h5 className="mt-4"><strong>Past Orders</strong></h5>
+        {
+          this.props.orderHistory.length ? (
+            <h5 className="mt-4"><strong>Past Orders</strong></h5>
+          ) : (
+            ''
+          )
+        }
         {this.props.orderHistory.map( order => (
           <div key={order.id} className="row my-3">
             <div className="col-sm-8">
-              <strong>ID:</strong> {order.id}
+              <strong>ID#:</strong> {order.id}
             </div>
             <div className="col-sm-4">
               <strong>Status:</strong> {order.status}
             </div>
           </div>
+
         ))}
       </div>
     )

@@ -144,11 +144,11 @@ class Checkout extends React.Component{
       newCart.userId = this.props.auth.id
     }
     try {
-      await this.props.submitCart(newCart)
+      this.props.submitCart(newCart, this.props.history)
     } catch (err) {
       console.log(`Unable to place order. ${err.message}`)
+      this.props.history.push(`orderconfirmation/${newCart.id}`)
     }
-    this.props.history.push(`orderconfirmation/${newCart.id}`)
   }
   componentWillReceiveProps(props){
     if (props){
@@ -166,8 +166,9 @@ const mapStateToProps = ({auth, cart}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitCart: (newCart) => {
+    submitCart: (newCart, history) => {
       axios.put('/api/orders/submit', newCart)
+        .then( () => history.push(`orderconfirmation/${newCart.id}`))
         .then( () => dispatch(setCart(queryString.parse(window.localStorage.getItem('token')))))
     }
   }

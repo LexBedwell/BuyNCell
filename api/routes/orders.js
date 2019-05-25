@@ -126,7 +126,7 @@ router.put('/submit', async (req, res, next) => {
 })
 
 //testing purposes only!
-/*
+
 router.get('/', (req, res, next) => {
   models.Orders.findAll({
     include: [{model: models.LineItems, include: models.Products }],
@@ -134,6 +134,6 @@ router.get('/', (req, res, next) => {
   })
     .then( response => res.send(response))
 })
-*/
+
 
 module.exports = router

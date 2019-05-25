@@ -14,7 +14,7 @@ const sendConfirmationEmail = (orderId, orderEmail) => {
         subject: `Thank you for your order from Celery Store!`,
         html: `<html><p>Hello ${orderEmail}!</p>
         <p>Thank you for your order from Celery Store!</p>
-        <p>Your order number is ${orderId}.</p>
+        <p>Your order ID number is: ${orderId}.</p>
         <p>Please visit <a href="https://celery-store.herokuapp.com">Celery Store</a> again for all your celery needs!</p>
         <p>**THIS IS A TEST EMAIL SO DON'T WORRY, YOU HAVEN'T BEEN CHARGED!**</p>  
         </html>`

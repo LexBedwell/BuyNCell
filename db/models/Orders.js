@@ -3,8 +3,8 @@ const conn = require('../connection')
 
 const Orders = conn.define('order', {
   id: {
-    type: Sequelize.UUID,
-    defaultValue: conn.Sequelize.UUIDV4,
+    type: Sequelize.BIGINT,
+    autoIncrement: true,
     primaryKey: true
   },
   status: {

@@ -12,8 +12,8 @@ class OrderConfirmation extends React.Component {
       if (orderConfirmation.id !== 'unable to retrieve order') {
           return (
               <div className="container w-75 p-3 my-3 bg-white">
-                  <p><h5 className="title centered"><strong>Thank you for your order!</strong></h5></p>
-                  <p><h6 className="title centered">Your order number is {orderConfirmation.id}. A confirmation email has been sent to your account.</h6></p>
+                  <h5 className="title centered"><p><strong>Thank you for your order!</strong></p></h5>
+                  <h6 className="title centered"><p>Your order ID number is: <stonrg>{orderConfirmation.id}</stonrg>. A confirmation email has been sent to your account.</p></h6>
               </div>
           )
       } else {
