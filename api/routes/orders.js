@@ -19,6 +19,21 @@ router.get('/history', (req, res, next) => {
     order: [['createdAt', 'DESC']]
   })
     .then( response => res.send(response))
+    .catch(next)
+})
+
+router.get('/orderconfirmation/:id', (req, res, next) => {
+  const attr = {
+    id: req.params.id,
+    status: {
+      [Op.or]: ['processing', 'completed', 'delivered']
+    }
+  }
+  models.Orders.findOne({
+    where: attr
+  })
+    .then( response => res.send({id: response.id}))
+    .catch( () => res.send({id: 'unable to retrieve order'}))
 })
 
 router.get('/cart', async (req, res, next) => {
@@ -111,7 +126,7 @@ router.put('/submit', async (req, res, next) => {
 })
 
 //testing purposes only!
-/*
+
 router.get('/', (req, res, next) => {
   models.Orders.findAll({
     include: [{model: models.LineItems, include: models.Products }],
@@ -119,6 +134,6 @@ router.get('/', (req, res, next) => {
   })
     .then( response => res.send(response))
 })
-*/
+
 
 module.exports = router
