@@ -53,7 +53,7 @@ class Cart extends React.Component {
               <strong>Grand Total</strong>
             </div>
             <div className="col-sm-2 text-center">
-              <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
+              <strong>${this.props.orderView.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
             </div>
           </div>
       </div>
