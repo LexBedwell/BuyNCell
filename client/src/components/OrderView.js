@@ -1,9 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import axios from 'axios'
-import queryString from 'query-string'
 
-import {_setCart, setCart} from '../actions/cart'
+import {loadOrderView} from '../actions/cart'
 
 // eslint-disable-next-line react/no-deprecated
 class Cart extends React.Component {
@@ -31,7 +29,7 @@ class Cart extends React.Component {
               <strong>Remove</strong>
             </div>
           </div>
-          {this.props.lineItems.map( lineItem => {
+          {this.props.orderView.lineItems.map( lineItem => {
             let index = this.props.lineItems.indexOf(lineItem)
             return (
               <div className="form-row offset-sm-1 col-sm-11 my-1" key={lineItem.id}>
@@ -64,7 +62,7 @@ class Cart extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      lineItems: props ? props.lineItems : []
+      lineItems: props ? props.orderView.lineItems : []
     }
   }
   componentDidMount(){
@@ -72,8 +70,8 @@ class Cart extends React.Component {
   }
 }
 
-const mapStateToProps = (order) => {
-  return order
+const mapStateToProps = (orderView) => {
+  return orderView
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
