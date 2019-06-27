@@ -7,7 +7,7 @@ export const _loadOrderView = orderView => ({
   orderView
 })
 
-export const loadOrderConfirmation = (id) => {
+export const loadOrderView = (id) => {
   return (dispatch) => {
     axios.get(`/api/orders/${id}`)
     .then(response => response.data)
