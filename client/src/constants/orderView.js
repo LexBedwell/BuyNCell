@@ -1,0 +1,1 @@
+export const LOAD_ORDERHISTORY = 'LOAD_ORDERVIEW'

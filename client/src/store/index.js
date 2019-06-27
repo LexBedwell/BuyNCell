@@ -7,6 +7,7 @@ import cart from './reducers/cart'
 import categories from './reducers/categories'
 import orderConfirmation from './reducers/orderConfirmation'
 import orderHistory from './reducers/orderHistory'
+import orderView from './reducers/orderView'
 import products from './reducers/products'
 
 const reducer = combineReducers({
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   categories,
   orderConfirmation,
   orderHistory,
+  orderView,
   products
 })
 
