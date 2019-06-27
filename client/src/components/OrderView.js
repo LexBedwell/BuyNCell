@@ -6,7 +6,7 @@ import {loadOrderView} from '../actions/cart'
 // eslint-disable-next-line react/no-deprecated
 class Cart extends React.Component {
   render(){
-    if (!this.props || this.props.lineItems === undefined || this.state.lineItems === undefined){
+    if (!this.props || this.props.orderView.lineItems === undefined || this.state.orderView.lineItems === undefined){
       return null
     }
     return (
@@ -30,7 +30,7 @@ class Cart extends React.Component {
             </div>
           </div>
           {this.props.orderView.lineItems.map( lineItem => {
-            let index = this.props.lineItems.indexOf(lineItem)
+            let index = this.props.orderView.lineItems.indexOf(lineItem)
             return (
               <div className="form-row offset-sm-1 col-sm-11 my-1" key={lineItem.id}>
                 <div className="col-sm-5 my-1">
