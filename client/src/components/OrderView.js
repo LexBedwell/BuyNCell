@@ -1,13 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {loadOrderView} from '../actions/cart'
+import {loadOrderView} from '../actions/orderView'
 
 // eslint-disable-next-line react/no-deprecated
 class Cart extends React.Component {
   render(){
-    if (!this.props || this.props.orderView.lineItems === undefined || this.state.orderView.lineItems === undefined){
-      return null
+    if (!this.props || this.props.orderView.lineItems === undefined){
+      return (
+        <div className="container w-75 p-3 my-3 bg-white">
+            <h5 className="title centered"><p><strong>Oops!</strong></p></h5>
+            <h6 className="title centered"><p>We're unable to find this order in our database.</p></h6>
+        </div>
+      )
     }
     return (
       <div className="container w-75 p-3 my-4 bg-white">
@@ -59,12 +64,6 @@ class Cart extends React.Component {
       </div>
     )
   }
-  constructor(props){
-    super(props)
-    this.state = {
-      lineItems: props ? props.orderView.lineItems : []
-    }
-  }
   componentDidMount(){
     this.props.init()
   }
@@ -75,6 +74,7 @@ const mapStateToProps = (orderView) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log('Map dispatch to props firing!')
   return {
     init: () => {
       dispatch(loadOrderView(ownProps.match.params.orderId))
@@ -83,4 +83,3 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Cart)
-

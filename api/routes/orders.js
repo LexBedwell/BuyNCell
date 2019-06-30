@@ -141,7 +141,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 //testing purposes only!
-/*
+
 router.get('/', (req, res, next) => {
   models.Orders.findAll({
     include: [{model: models.LineItems, include: models.Products }],
@@ -150,6 +150,5 @@ router.get('/', (req, res, next) => {
     .then( response => res.send(response))
     .catch(next)
 })
-*/
 
 module.exports = router
