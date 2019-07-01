@@ -18,7 +18,7 @@ class Cart extends React.Component {
       <div>
         <div className="container w-75 p-3 my-4 bg-white">
           <h5><strong>Your Order</strong> ({this.props.orderView.status}) </h5>
-            <div className="form-row offset-sm-1 col-sm-11 text-center mb-4">
+            <div className="form-row offset-sm-1 col-sm-11 text-center mb-3">
               <div className="col-sm-6 my-1 text-left">
                 <strong>Name</strong>
               </div>
