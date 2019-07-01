@@ -140,15 +140,16 @@ router.get('/:id', (req, res, next) => {
   .catch(next)
 })
 
-//testing purposes only!
-
-router.get('/', (req, res, next) => {
-  models.Orders.findAll({
-    include: [{model: models.LineItems, include: models.Products }],
-    order: [['createdAt', 'DESC']]
+//dev purposes only!
+if (process.env.NODE_ENV === 'development'){
+  router.get('/', (req, res, next) => {
+    models.Orders.findAll({
+      include: [{model: models.LineItems, include: models.Products }],
+      order: [['createdAt', 'DESC']]
+    })
+      .then( response => res.send(response))
+      .catch(next)
   })
-    .then( response => res.send(response))
-    .catch(next)
-})
+}
 
 module.exports = router

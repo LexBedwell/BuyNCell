@@ -20,4 +20,12 @@ const reducer = combineReducers({
   products
 })
 
-export default createStore(reducer, applyMiddleware(loggerMiddleware, thunkMiddleware))
+let middlewares = {}
+
+if (process.env.NODE_ENV === 'development'){
+  middlewares = applyMiddleware(loggerMiddleware, thunkMiddleware)
+} else {
+  middlewares = applyMiddleware(thunkMiddleware)
+}
+
+export default createStore(reducer, middlewares)

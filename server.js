@@ -10,6 +10,8 @@ try {
   console.log(err)
 }
 
+console.log(`Starting server in mode: ${process.env.NODE_ENV || 'Unable to access process.env.NODE_ENV --> defaulting to production'}`)
+
 app.use(express.json({limit: '5mb'}))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('./client/public'))
