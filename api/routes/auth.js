@@ -55,13 +55,12 @@ router.get('/facebook/callback', async (req, res, next) => {
   }
 })
 
-//testing purposes only!
-/*
-router.get('/users', async (req, res, next) => {
-  let response = await models.Users.findAll({})
-  res.send(response)
-})
-*/
+//dev purposes only!
+if (process.env.NODE_ENV === 'development'){
+  router.get('/users', async (req, res, next) => {
+    let response = await models.Users.findAll({})
+    res.send(response)
+  })
+}
 
 module.exports = router
-

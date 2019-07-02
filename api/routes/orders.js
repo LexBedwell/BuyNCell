@@ -125,15 +125,31 @@ router.put('/submit', async (req, res, next) => {
   }
 })
 
-//testing purposes only!
-
-router.get('/', (req, res, next) => {
-  models.Orders.findAll({
-    include: [{model: models.LineItems, include: models.Products }],
-    order: [['createdAt', 'DESC']]
+router.get('/:id', (req, res, next) => {
+  const attr = {
+    id: req.params.id,
+    status: {
+      [Op.or]: ['processing', 'cancelled', 'completed', 'delivered']
+    }
+  }
+  models.Orders.findOne({
+    where: attr,
+    include: [{model: models.LineItems, include: models.Products }]
   })
-    .then( response => res.send(response))
+  .then( response => res.send(response))
+  .catch(next)
 })
 
+//dev purposes only!
+if (process.env.NODE_ENV === 'development'){
+  router.get('/', (req, res, next) => {
+    models.Orders.findAll({
+      include: [{model: models.LineItems, include: models.Products }],
+      order: [['createdAt', 'DESC']]
+    })
+      .then( response => res.send(response))
+      .catch(next)
+  })
+}
 
 module.exports = router

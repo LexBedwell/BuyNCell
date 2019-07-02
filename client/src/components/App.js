@@ -12,6 +12,7 @@ import OrderHistory from './OrderHistory'
 import ProductList from './ProductList'
 import ProductDetail from './ProductDetail'
 import OrderConfirmation from './OrderConfirmation'
+import OrderView from './OrderView'
 
 import {setAuth} from '../actions/auth'
 import {setCart} from '../actions/cart'
@@ -30,6 +31,7 @@ class App extends React.Component{
           <Route exact path="/products" component={ProductList} />
           <Route path="/products/:productId" component={ProductDetail} />
           <Route path="/orderconfirmation/:orderId" component={OrderConfirmation} />
+          <Route path="/orderview/:orderId" component={OrderView} />
         </div>
       </HashRouter>
     )

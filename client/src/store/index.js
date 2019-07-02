@@ -7,6 +7,7 @@ import cart from './reducers/cart'
 import categories from './reducers/categories'
 import orderConfirmation from './reducers/orderConfirmation'
 import orderHistory from './reducers/orderHistory'
+import orderView from './reducers/orderView'
 import products from './reducers/products'
 
 const reducer = combineReducers({
@@ -15,7 +16,16 @@ const reducer = combineReducers({
   categories,
   orderConfirmation,
   orderHistory,
+  orderView,
   products
 })
 
-export default createStore(reducer, applyMiddleware(loggerMiddleware, thunkMiddleware))
+let middlewares = {}
+
+if (process.env.NODE_ENV === 'development'){
+  middlewares = applyMiddleware(loggerMiddleware, thunkMiddleware)
+} else {
+  middlewares = applyMiddleware(thunkMiddleware)
+}
+
+export default createStore(reducer, middlewares)
