@@ -40,12 +40,12 @@ router.get('/facebook/callback', async (req, res, next) => {
     if (!user){
       if (facebookData.email){
         user = await models.Users.create({
-        email: facebookData.email,
-        isAdmin: false
-      })
-    } else {
-      return next(new Error('Facebook User Validation Failed.'))
-    }
+          email: facebookData.email,
+          isAdmin: false
+        })
+      } else {
+        return next(new Error('Facebook User Validation Failed.'))
+      }
     }
     const token = jwt.encode({id: user.id}, process.env.JWT_SECRET)
     res.redirect(`/?token=${token}`)
