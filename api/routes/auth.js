@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
     }
     res.send({id: user.id, email: user.email})
   } catch (err) {
-    console.log('Unable to authenticate user token: ', err.message)
+    console.error('Unable to authenticate user token: ', err.message)
     res.send({})
   }
 })
@@ -50,16 +50,17 @@ router.get('/facebook/callback', async (req, res, next) => {
     const token = jwt.encode({id: user.id}, process.env.JWT_SECRET)
     res.redirect(`/?token=${token}`)
   } catch (err) {
-    console.log('Facebook authentication failed: ', err.message)
+    console.error('Facebook authentication failed: ', err.message)
     next(err)
   }
 })
 
 //dev purposes only!
 if (process.env.NODE_ENV === 'development'){
-  router.get('/users', async (req, res, next) => {
-    let response = await models.Users.findAll({})
-    res.send(response)
+  router.get('/users', (req, res, next) => {
+    models.Users.findAll({})
+    .then((response) => res.send(response))
+    .catch(next)
   })
 }
 
