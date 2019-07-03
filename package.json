@@ -1,7 +1,11 @@
 {
-  "name": "buynCelVer2",
+  "name": "buyncel",
   "version": "1.0.0",
-  "description": "",
+  "description": "e-commerce website selling celery",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LexBedwell/BuyAndCell.git"
+  },
   "engines": {
     "node": "8.11.2",
     "npm": "6.x"
@@ -14,7 +18,7 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "LexBedwell",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
