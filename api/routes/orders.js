@@ -53,7 +53,7 @@ router.get('/cart', async (req, res, next) => {
       const createdCart = await models.Orders.create({userId: req.user.id, status: 'cart'})
       cart = await models.Orders.findOne({ where: {id: createdCart.id}, include: [{model: models.LineItems, include: models.Products }] })
     }
-  res.send(cart);
+    res.send(cart);
   }
   catch (err){
     next(err)
