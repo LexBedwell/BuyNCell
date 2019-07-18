@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const axios = require('axios')
 
 require('console-info')
 require('console-warn')
@@ -33,5 +34,18 @@ app.listen(PORT, () => {
 })
 
 syncAndSeed()
+
+axios.get('https://celery-store-inventory-service.herokuapp.com/')
+  .then( response => {
+    if (response.data.response.results === 'pong'){
+      console.info('inventory-service is online')
+    } else {
+      throw new Error('Unable to connect to inventory-service')
+    }
+  })
+  .catch( err => {
+    console.error(err.message)
+    console.warn('inventory-service is offline. Some functionality may be disabled.')
+  })
 
 module.exports =  { app }
