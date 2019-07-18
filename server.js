@@ -35,7 +35,7 @@ app.listen(PORT, () => {
 
 syncAndSeed()
 
-axios.get(process.env.INVENTORY_SEVICE_URL || 'https://celery-store-inventory-service.herokuapp.com/')
+axios.get(process.env.INVENTORY_SERVICE_URL || 'https://celery-store-inventory-service.herokuapp.com/')
   .then( response => {
     if (response.data.response.results === 'pong'){
       console.info('inventory-service is online')
