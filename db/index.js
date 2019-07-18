@@ -35,6 +35,7 @@ const syncAndSeed = async () => {
     console.info('Databse syncAndSeed completed')
   } catch (err) {
     console.error(err.message)
+    console.warn('database is offline. Some functionality may be disabled.')
   }
 }
 
