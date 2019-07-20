@@ -40,7 +40,7 @@ axios.get(process.env.INVENTORY_SERVICE_URL || 'https://celery-store-inventory-s
     if (response.data.response.results === 'pong'){
       console.info('inventory-service is online')
     } else {
-      throw new Error('Unable to connect to inventory-service')
+      throw new Error('Unable to contact inventory-service')
     }
   })
   .catch( err => {
