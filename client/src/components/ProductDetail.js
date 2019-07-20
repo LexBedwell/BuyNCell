@@ -27,10 +27,14 @@ class ProductDetail extends React.Component{
           <p className="card-text px-3"><strong>Price:</strong> ${product.price}</p>
           <p className="px-3"><strong>Quantity: </strong><input value={this.state.quantity} onChange={this.handleChange} name="quantity" type="number" /></p>
           {
-            this.state.isInStock ? (
-              <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
+            this.state.inventoryCheck ? (
+              this.state.isInStock ? (
+                <p><button type="submit" className="btn btn-outline-success btn-sm" disabled = {(this.state.quantity < 1)}>Add to Cart!</button></p>
+              ) : (
+                <p><button type="submit" className="btn btn-outline-danger btn-sm" disabled = {true}>Sold Out!</button></p>
+              )
             ) : (
-              <p><button type="submit" className="btn btn-outline-danger btn-sm" disabled = {true}>Sold Out!</button></p>
+              ''
             )
           }
         </form>
@@ -43,6 +47,7 @@ class ProductDetail extends React.Component{
     super()
     this.state = {
         quantity: 0,
+        inventoryCheck: false,
         isInStock: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -77,7 +82,9 @@ class ProductDetail extends React.Component{
     axios.get(inventoryURL)
       .then( response => {
         if (response.data.isInStock === true){
-          this.setState({isInStock: true})
+          this.setState({inventoryCheck: true, isInStock: true})
+        } else {
+          this.setState({inventoryCheck: true})
         }
       })
       .catch( err => {
