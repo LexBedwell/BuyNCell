@@ -11,7 +11,7 @@ class Orders extends React.Component{
       return (
         <div className="container w-75 p-3 my-3 bg-white">
             <h5 className="title centered"><p><strong>Oops!</strong></p></h5>
-            <h6 className="title centered"><p>Please login to view your order history.</p></h6>
+            <h6 className="title centered"><p>Please log in to view your order history.</p></h6>
         </div>
       )
     }
