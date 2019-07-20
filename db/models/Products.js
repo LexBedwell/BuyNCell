@@ -29,13 +29,6 @@ const Products = conn.define('products', {
       isFloat: true
     }
   },
-  quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      isInt: true
-    }
-  },
   photo: {
     type: Sequelize.TEXT
   }
