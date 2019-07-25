@@ -3,7 +3,7 @@ Fully functional e-commerce website selling celery. Utilizes [inventory-service]
 
 ## Build and Run
 - `npm install`- install all modules listed as dependencies in package.json
-- `npm run webpack-dev` or `npm run webpack-prod`- bundle project w/ webpack in dev or prod mode
+- `npm run webpack-dev` or `npm run webpack-prod`- bundle project with webpack in dev or prod mode
 - `npm start` - start server
 
 
