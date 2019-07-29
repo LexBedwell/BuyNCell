@@ -1,5 +1,7 @@
 # Buy and Cell
-Fully functional e-commerce website selling celery. Utilizes [inventory-service](https://github.com/LexBedwell/inventory-service) to store and update product inventory quantities. [Demo here.](https://celery-store.herokuapp.com)
+Fully functional e-commerce website selling celery. Utilizes [inventory-service](https://github.com/LexBedwell/inventory-service) to store and update product inventory quantities. 
+
+[Demo here.](https://celery-store.herokuapp.com)
 
 ## Build and Run
 - `npm install`- install all modules listed as dependencies in package.json
