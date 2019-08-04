@@ -12,63 +12,77 @@ class Cart extends React.Component {
       return null
     }
     return (
-      <div className="container w-75 p-3 my-4 bg-white">
-        <h5><strong>Your Cart</strong></h5>
-        <form className="pt-3" id="addToCart" onSubmit={this.handleSubmit}>
-          <div className="form-row offset-sm-1 col-sm-11 text-center mb-4">
-            <div className="col-sm-5 my-1 text-left">
-              <strong>Name</strong>
+      <div>
+        {
+          this.props.errorMsg ? (
+            <div className="container w-75 p-3 my-3 bg-white">
+              <h5 className="title centered"><p><strong>Sorry!</strong></p></h5>
+              <h6 className="title centered"><p>{this.props.errorMsg}</p></h6>
             </div>
-            <div className="col-sm-2 my-1">
-              <strong>Quantity</strong>
-            </div>
-            <div className="col-sm-2 my-1">
-              <strong>Price</strong>
-            </div>
-            <div className="col-sm-2 my-1">
-              <strong>Total</strong>
-            </div>
-            <div className="col-sm-1 my-1">
-              <strong>Remove</strong>
-            </div>
-          </div>
-          {this.props.lineItems.map( lineItem => {
-            let index = this.props.lineItems.indexOf(lineItem)
-            return (
-              <div className="form-row offset-sm-1 col-sm-11 my-1" key={lineItem.id}>
-                <div className="col-sm-5 my-1">
-                  {lineItem.product.name}
-                </div>
-                <div className="col-sm-2 my-1 text-center">
-                  <input className="form-control" type="number" value={lineItem.quantity} onChange={this.handleChange} name={index.toString()} />
-                </div>
-                <div className="col-sm-2 my-1 text-center">
-                  ${lineItem.product.price}
-                </div>
-                <div className="col-sm-2 my-1 text-center">
-                  ${lineItem.quantity ? (lineItem.quantity * lineItem.product.price).toFixed(2) : 0}
-                </div>
-                <div className="col-sm-1 my-1 text-center">
-                  <input type="button" className="btn btn-outline-danger btn-sm" value="X" onClick={() => {this.deleteLineItem(lineItem)}} />
-                </div>
+          ) : (
+            ''
+          )
+        }
+        <div className="container w-75 p-3 my-4 bg-white">
+          <h5><strong>Your Cart</strong></h5>
+          <form className="pt-3" id="addToCart" onSubmit={this.handleSubmit}>
+            <div className="form-row offset-sm-1 col-sm-11 text-center mb-4">
+              <div className="col-sm-5 my-1 text-left">
+                <strong>Name</strong>
               </div>
-            )
-          })}
-          <div className="form-row offset-sm-1 col-sm-11 mb-1 mt-4">
-            <div className="col-sm-9 text-left">
-              <strong>Grand Total</strong>
+              <div className="col-sm-2 my-1">
+                <strong>Quantity</strong>
+              </div>
+              <div className="col-sm-2 my-1">
+                <strong>Price</strong>
+              </div>
+              <div className="col-sm-2 my-1">
+                <strong>Total</strong>
+              </div>
+              <div className="col-sm-1 my-1">
+                <strong>Remove</strong>
+              </div>
             </div>
-            <div className="col-sm-2 text-center">
-              <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
+            {this.props.lineItems.map( lineItem => {
+              let index = this.props.lineItems.indexOf(lineItem)
+              return (
+                <div className="form-row offset-sm-1 col-sm-11 my-1" key={lineItem.id}>
+                  <div className="col-sm-5 my-1">
+                    {
+                      this.props.OosItems && (this.props.OosItems.indexOf(lineItem.product.id.toString()) !== -1) ? <font color="red">{lineItem.product.name}</font> : `${lineItem.product.name}`
+                    }
+                  </div>
+                  <div className="col-sm-2 my-1 text-center">
+                    <input className="form-control" type="number" value={lineItem.quantity} onChange={this.handleChange} name={index.toString()} />
+                  </div>
+                  <div className="col-sm-2 my-1 text-center">
+                    ${lineItem.product.price}
+                  </div>
+                  <div className="col-sm-2 my-1 text-center">
+                    ${lineItem.quantity ? (lineItem.quantity * lineItem.product.price).toFixed(2) : 0}
+                  </div>
+                  <div className="col-sm-1 my-1 text-center">
+                    <input type="button" className="btn btn-outline-danger btn-sm" value="X" onClick={() => {this.deleteLineItem(lineItem)}} />
+                  </div>
+                </div>
+              )
+            })}
+            <div className="form-row offset-sm-1 col-sm-11 mb-1 mt-4">
+              <div className="col-sm-9 text-left">
+                <strong>Grand Total</strong>
+              </div>
+              <div className="col-sm-2 text-center">
+                <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
+              </div>
             </div>
-          </div>
-          <div className="form-row offset-sm-1 col-sm-11 my-3">
-            <div className="offset-sm-5 col-sm-7">
-              <button type="submit" className="btn btn-outline-primary btn-sm m-3">Update Cart</button>
-              <input type="button" className="btn btn-outline-success btn-sm m-3" value="Checkout" onClick={this.orderCheckout} />
+            <div className="form-row offset-sm-1 col-sm-11 my-3">
+              <div className="offset-sm-5 col-sm-7">
+                <button type="submit" className="btn btn-outline-primary btn-sm m-3">Update Cart</button>
+                <input type="button" className="btn btn-outline-success btn-sm m-3" value="Checkout" onClick={this.orderCheckout} />
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     )
   }

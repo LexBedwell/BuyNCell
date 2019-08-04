@@ -136,7 +136,7 @@ class Checkout extends React.Component{
   handleChange(ev){
     this.setState({[ev.target.name]: ev.target.value});
   }
-  async handleSubmit(ev){
+  handleSubmit(ev){
     ev.preventDefault()
     let newCart = this.state
     let newCartKeys = ['id', 'lineItems']
@@ -177,8 +177,12 @@ const mapDispatchToProps = (dispatch) => {
                 outOfStockItems.push(elem)
               }
             })
-            newCart.errorMsg = 'Sorry! Some items are out of stock. Please remove the below items to complete checkout.'
-            newCart.OosItems = outOfStockItems
+            if (outOfStockItems.length) {
+              newCart.errorMsg = 'Some items are out of stock. Please remove the below items to complete checkout.'
+              newCart.OosItems = outOfStockItems
+            } else {
+              newCart.errorMsg = 'Something went wrong.'
+            }
             dispatch(updateCart(newCart))
             history.push(`/cart`)
           } else {
