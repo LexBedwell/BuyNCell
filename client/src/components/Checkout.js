@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import queryString from 'query-string'
 
-import {setCart} from '../actions/cart'
+import {setCart, updateCart} from '../actions/cart'
+
 
 // eslint-disable-next-line react/no-deprecated
 class Checkout extends React.Component{
@@ -171,10 +172,20 @@ const mapDispatchToProps = (dispatch) => {
         .then( response => {
           console.log(response.data.processTransaction)
           if (response.data.processTransaction === false){
+            let outOfStockItems = []
+            Object.keys(response.data).forEach( elem =>{ 
+              if (response.data[elem] === false && elem !== 'processTransaction') {
+                outOfStockItems.push(elem)
+              }
+          })
+            console.log(outOfStockItems)
+            newCart.errorMsg = 'Sorry! Some items are out of stock. Please remove the below items to complete checkout.'
+            newCart.OosItems = outOfStockItems
+            dispatch(updateCart(newCart))
             history.push(`/cart`)
           } else {
-          history.push(`orderconfirmation/${newCart.id}`)
-          dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
+            history.push(`orderconfirmation/${newCart.id}`)
+            dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
           }
         })
     }
