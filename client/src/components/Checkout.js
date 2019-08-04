@@ -5,6 +5,7 @@ import axios from 'axios'
 import queryString from 'query-string'
 
 import {setCart} from '../actions/cart'
+import {setCartErrors} from '../actions/cartErrors'
 
 // eslint-disable-next-line react/no-deprecated
 class Checkout extends React.Component{
@@ -135,7 +136,7 @@ class Checkout extends React.Component{
   handleChange(ev){
     this.setState({[ev.target.name]: ev.target.value});
   }
-  async handleSubmit(ev){
+  handleSubmit(ev){
     ev.preventDefault()
     let newCart = this.state
     let newCartKeys = ['id', 'lineItems']
@@ -147,7 +148,7 @@ class Checkout extends React.Component{
       this.props.submitCart(newCart, this.props.history)
     } catch (err) {
       console.log(`Unable to place order. ${err.message}`)
-      this.props.history.push(`orderconfirmation/${newCart.id}`)
+      this.props.history.push(`/cart`)
     }
   }
   componentWillReceiveProps(props){
@@ -168,8 +169,28 @@ const mapDispatchToProps = (dispatch) => {
   return {
     submitCart: (newCart, history) => {
       axios.put('/api/orders/submit', newCart)
-        .then( () => history.push(`orderconfirmation/${newCart.id}`))
-        .then( () => dispatch(setCart(queryString.parse(window.localStorage.getItem('token')))))
+        .then( response => {
+          if (response.data.processTransaction === false){
+            let cartErrors = {}
+            cartErrors.outOfStockItems = []
+            Object.keys(response.data).forEach( elem =>{ 
+              if (response.data[elem] === false && elem !== 'processTransaction') {
+                cartErrors.outOfStockItems.push(elem)
+              }
+            })
+            if (cartErrors.outOfStockItems.length) {
+              cartErrors.errorMsg = 'Some items are out of stock. Please remove the below items to complete checkout.'
+            } else {
+              cartErrors.errorMsg = 'Something went wrong.'
+            }
+            dispatch(setCartErrors(cartErrors))
+            history.push(`/cart`)
+          } else {
+            history.push(`orderconfirmation/${newCart.id}`)
+            dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
+            dispatch(setCartErrors({}))
+          }
+        })
     }
   }
 }

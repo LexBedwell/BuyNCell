@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const axios = require('axios')
 
 const {Op} = require('sequelize')
 
@@ -96,30 +97,37 @@ router.put('/submit', async (req, res, next) => {
       let searchUser = await models.Users.findByPk(req.body.userId)
       orderEmail = searchUser.email
     }
-    req.body.lineItems.forEach(async lineItem => {
-      await models.LineItems.update({
-        quantity: lineItem.quantity
-      }, {
+    let inventoryServiceOrder = {}
+    req.body.lineItems.forEach( elem => inventoryServiceOrder[elem.productId] = elem.quantity)
+    let inventoryServiceResponse = await axios.put( (process.env.INVENTORY_SERVICE_URL || 'https://celery-store-inventory-service.herokuapp.com') + '/inventory', inventoryServiceOrder)
+    if (inventoryServiceResponse.data.processTransaction === true) {
+      req.body.lineItems.forEach(async lineItem => {
+        await models.LineItems.update({
+          quantity: lineItem.quantity
+        }, {
+          where: {
+              id: lineItem.id
+          }
+        })
+      })
+      await models.Orders.update({
+          status: 'processing',
+          isPaid: true,
+          addressName: req.body.addressName,
+          addressLine: req.body.addressLine,
+          addressCity: req.body.addressCity,
+          addressState: req.body.addressState,
+          addressZip: req.body.addressZip
+        }, {
         where: {
-            id: lineItem.id
+          id: req.body.id
         }
       })
-    })
-    await models.Orders.update({
-        status: 'processing',
-        isPaid: true,
-        addressName: req.body.addressName,
-        addressLine: req.body.addressLine,
-        addressCity: req.body.addressCity,
-        addressState: req.body.addressState,
-        addressZip: req.body.addressZip
-      }, {
-      where: {
-        id: req.body.id
-      }
-    })
-    sendConfirmationEmail(orderId, orderEmail)
-    res.sendStatus(200)
+      sendConfirmationEmail(orderId, orderEmail)
+    } else {
+      console.info('transaction denied - no inventory')
+    }
+    res.status(202).send(inventoryServiceResponse.data)
   } catch (err) {
     next(err)
   }
