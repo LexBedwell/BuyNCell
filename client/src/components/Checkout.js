@@ -170,15 +170,13 @@ const mapDispatchToProps = (dispatch) => {
     submitCart: (newCart, history) => {
       axios.put('/api/orders/submit', newCart)
         .then( response => {
-          console.log(response.data.processTransaction)
           if (response.data.processTransaction === false){
             let outOfStockItems = []
             Object.keys(response.data).forEach( elem =>{ 
               if (response.data[elem] === false && elem !== 'processTransaction') {
                 outOfStockItems.push(elem)
               }
-          })
-            console.log(outOfStockItems)
+            })
             newCart.errorMsg = 'Sorry! Some items are out of stock. Please remove the below items to complete checkout.'
             newCart.OosItems = outOfStockItems
             dispatch(updateCart(newCart))

@@ -100,9 +100,7 @@ router.put('/submit', async (req, res, next) => {
     let inventoryServiceOrder = {}
     req.body.lineItems.forEach( elem => inventoryServiceOrder[elem.id] = elem.quantity)
     let inventoryServiceResponse = await axios.put( (process.env.INVENTORY_SERVICE_URL || 'https://celery-store-inventory-service.herokuapp.com') + '/inventory', inventoryServiceOrder)
-    console.info(inventoryServiceResponse.data.processTransaction)
     if (inventoryServiceResponse.data.processTransaction === true) {
-      console.info('transaction processed')
       req.body.lineItems.forEach(async lineItem => {
         await models.LineItems.update({
           quantity: lineItem.quantity
