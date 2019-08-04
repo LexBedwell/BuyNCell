@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 
 import auth from './reducers/auth'
 import cart from './reducers/cart'
+import cartErrors from './reducers/cartErrors'
 import categories from './reducers/categories'
 import orderConfirmation from './reducers/orderConfirmation'
 import orderHistory from './reducers/orderHistory'
@@ -13,6 +14,7 @@ import products from './reducers/products'
 const reducer = combineReducers({
   auth,
   cart,
+  cartErrors,
   categories,
   orderConfirmation,
   orderHistory,

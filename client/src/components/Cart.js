@@ -8,16 +8,16 @@ import {_setCart, setCart} from '../actions/cart'
 // eslint-disable-next-line react/no-deprecated
 class Cart extends React.Component {
   render(){
-    if (!this.props || this.props.lineItems === undefined || this.state.lineItems === undefined){
+    if (!this.props || this.props.cart === undefined || this.props.cart.lineItems === undefined || this.state.lineItems === undefined){
       return null
     }
     return (
       <div>
         {
-          this.props.errorMsg ? (
+          this.props.cartErrors.errorMsg ? (
             <div className="container w-75 p-3 my-3 bg-white">
               <h5 className="title centered"><p><strong>Sorry!</strong></p></h5>
-              <h6 className="title centered"><p>{this.props.errorMsg}</p></h6>
+              <h6 className="title centered"><p>{this.props.cartErrors.errorMsg}</p></h6>
             </div>
           ) : (
             ''
@@ -43,13 +43,13 @@ class Cart extends React.Component {
                 <strong>Remove</strong>
               </div>
             </div>
-            {this.props.lineItems.map( lineItem => {
-              let index = this.props.lineItems.indexOf(lineItem)
+            {this.props.cart.lineItems.map( lineItem => {
+              let index = this.props.cart.lineItems.indexOf(lineItem)
               return (
                 <div className="form-row offset-sm-1 col-sm-11 my-1" key={lineItem.id}>
                   <div className="col-sm-5 my-1">
                     {
-                      this.props.OosItems && (this.props.OosItems.indexOf(lineItem.product.id.toString()) !== -1) ? <font color="red">{lineItem.product.name}</font> : `${lineItem.product.name}`
+                      this.props.cartErrors.outOfStockItems && (this.props.cartErrors.outOfStockItems.indexOf(lineItem.productId.toString()) !== -1) ? <font color="red">{lineItem.product.name}</font> : `${lineItem.product.name}`
                     }
                   </div>
                   <div className="col-sm-2 my-1 text-center">
@@ -72,7 +72,7 @@ class Cart extends React.Component {
                 <strong>Grand Total</strong>
               </div>
               <div className="col-sm-2 text-center">
-                <strong>${this.props.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
+                <strong>${this.props.cart.lineItems.reduce( (accumulator, currentValue) => {return accumulator + currentValue.quantity * parseFloat(currentValue.product.price)}, 0).toFixed(2)}</strong>
               </div>
             </div>
             <div className="form-row offset-sm-1 col-sm-11 my-3">
@@ -89,7 +89,7 @@ class Cart extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      lineItems: props ? props.lineItems : []
+      lineItems: props ? props.cart.lineItems : []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -116,7 +116,7 @@ class Cart extends React.Component {
     let newCart = this.state
     newCart.lineItems = filteredLineItems
     const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
-    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    newCartKeys.forEach( key => newCart[key] = this.props.cart[key])
     axios.delete(`/api/lineitems/${lineItem.id}`)
       .then( () => this.props.updateCart(newCart))
     this.setState({
@@ -132,7 +132,7 @@ class Cart extends React.Component {
     })
     newCart.lineItems = this.state.lineItems.filter( elem => elem.quantity)
     const newCartKeys = ['id', 'status', 'addressName', 'addressLine', 'addressCity', 'addressState', 'addressZip']
-    newCartKeys.forEach( key => newCart[key] = this.props[key])
+    newCartKeys.forEach( key => newCart[key] = this.props.cart[key])
     this.props.updateCart(newCart)
   }
   orderCheckout(){
@@ -140,14 +140,14 @@ class Cart extends React.Component {
     this.props.history.push(`/checkout`)
   }
   componentWillReceiveProps(props){
-    if (props.lineItems !== undefined){
-      this.setState({lineItems: props.lineItems})
+    if (props.cart.lineItems !== undefined){
+      this.setState({lineItems: props.cart.lineItems})
     }
   }
 }
 
-const mapStateToProps = ({cart}) => {
-  return cart
+const mapStateToProps = ({cart, cartErrors}) => {
+  return { cart, cartErrors }
 }
 
 const mapDispatchToProps = (dispatch) => {

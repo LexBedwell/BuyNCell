@@ -19,5 +19,3 @@ export const setCart = ({token}) => {
       .catch(err => console.log('Unable to set cart: ', err.message))
   }
 }
-
-export const updateCart = cart => (dispatch) => dispatch(_setCart(cart))

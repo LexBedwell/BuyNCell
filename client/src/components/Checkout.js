@@ -4,8 +4,8 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import queryString from 'query-string'
 
-import {setCart, updateCart} from '../actions/cart'
-
+import {setCart} from '../actions/cart'
+import {setCartErrors} from '../actions/cartErrors'
 
 // eslint-disable-next-line react/no-deprecated
 class Checkout extends React.Component{
@@ -171,23 +171,24 @@ const mapDispatchToProps = (dispatch) => {
       axios.put('/api/orders/submit', newCart)
         .then( response => {
           if (response.data.processTransaction === false){
-            let outOfStockItems = []
+            let cartErrors = {}
+            cartErrors.outOfStockItems = []
             Object.keys(response.data).forEach( elem =>{ 
               if (response.data[elem] === false && elem !== 'processTransaction') {
-                outOfStockItems.push(elem)
+                cartErrors.outOfStockItems.push(elem)
               }
             })
-            if (outOfStockItems.length) {
-              newCart.errorMsg = 'Some items are out of stock. Please remove the below items to complete checkout.'
-              newCart.OosItems = outOfStockItems
+            if (cartErrors.outOfStockItems.length) {
+              cartErrors.errorMsg = 'Some items are out of stock. Please remove the below items to complete checkout.'
             } else {
-              newCart.errorMsg = 'Something went wrong.'
+              cartErrors.errorMsg = 'Something went wrong.'
             }
-            dispatch(updateCart(newCart))
+            dispatch(setCartErrors(cartErrors))
             history.push(`/cart`)
           } else {
             history.push(`orderconfirmation/${newCart.id}`)
             dispatch(setCart(queryString.parse(window.localStorage.getItem('token'))))
+            dispatch(setCartErrors({}))
           }
         })
     }
