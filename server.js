@@ -41,7 +41,6 @@ if (process.env.NODE_ENV === 'development'){
     {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
   ])
 } else {
-  console.info('Connecting to production services')
   serviceLoader([
     {name: 'account service', URL: 'https://celery-store-account-service.herokuapp.com'},
     {name: 'inventory service', URL: 'https://celery-store-inventory-service.herokuapp.com'}
