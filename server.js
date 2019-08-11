@@ -35,16 +35,9 @@ app.listen(PORT, () => {
 
 syncAndSeed()
 
-if (process.env.NODE_ENV === 'development'){
-  serviceLoader([
-    {name: 'account service', URL: process.env.ACCOUNT_SERVICE_URL},
-    {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
-  ])
-} else {
-  serviceLoader([
-    {name: 'account service', URL: 'https://celery-store-account-service.herokuapp.com'},
-    {name: 'inventory service', URL: 'https://celery-store-inventory-service.herokuapp.com'}
-  ])
-}
+serviceLoader([
+  {name: 'account service', URL: process.env.ACCOUNT_SERVICE_URL},
+  {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
+])
 
 module.exports =  { app }
