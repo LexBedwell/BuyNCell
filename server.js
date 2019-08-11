@@ -16,7 +16,7 @@ try {
   console.warn('Unable to set env variables for development mode. Some functionality in dev mode may be disabled.')
 }
 
-console.info(`Starting server in mode: ${process.env.NODE_ENV || 'Unable to access process.env.NODE_ENV --> defaulting to production'}`)
+console.info(`Starting server in mode: ${process.env.NODE_ENV || 'Unable to access process.env.NODE_ENV --> mode has not been set'}`)
 
 app.use(express.json({limit: '5mb'}))
 app.use(express.urlencoded({ extended: true }))
@@ -35,16 +35,9 @@ app.listen(PORT, () => {
 
 syncAndSeed()
 
-if (process.env.NODE_ENV === 'development'){
-  serviceLoader([
-    {name: 'account service', URL: process.env.ACCOUNT_SERVICE_URL},
-    {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
-  ])
-} else {
-  serviceLoader([
-    {name: 'account service', URL: 'https://celery-store-account-service.herokuapp.com'},
-    {name: 'inventory service', URL: 'https://celery-store-inventory-service.herokuapp.com'}
-  ])
-}
+serviceLoader([
+  {name: 'account service', URL: process.env.ACCOUNT_SERVICE_URL},
+  {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
+])
 
 module.exports =  { app }

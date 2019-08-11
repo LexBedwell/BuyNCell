@@ -99,7 +99,7 @@ router.put('/submit', async (req, res, next) => {
     }
     let inventoryServiceOrder = {}
     req.body.lineItems.forEach( elem => inventoryServiceOrder[elem.productId] = elem.quantity)
-    let inventoryServiceResponse = await axios.put( (process.env.INVENTORY_SERVICE_URL || 'https://celery-store-inventory-service.herokuapp.com') + '/inventory', inventoryServiceOrder)
+    let inventoryServiceResponse = await axios.put(process.env.INVENTORY_SERVICE_URL + '/inventory', inventoryServiceOrder)
     if (inventoryServiceResponse.data.processTransaction === true) {
       req.body.lineItems.forEach(async lineItem => {
         await models.LineItems.update({
@@ -124,8 +124,6 @@ router.put('/submit', async (req, res, next) => {
         }
       })
       sendConfirmationEmail(orderId, orderEmail)
-    } else {
-      console.info('transaction denied - no inventory')
     }
     res.status(202).send(inventoryServiceResponse.data)
   } catch (err) {
