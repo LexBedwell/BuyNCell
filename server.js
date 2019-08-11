@@ -13,7 +13,7 @@ try {
   Object.assign(process.env, require('./.env'))
 } catch (err){
   console.error(err.message)
-  console.warn('Unable to set env variables for development mode. Some functionality in dev mode may be disabled.')
+  console.warn('Unable to load local env file. This file is not used in production.')
 }
 
 console.info(`Starting server in mode: ${process.env.NODE_ENV || 'Unable to access process.env.NODE_ENV --> mode has not been set'}`)
