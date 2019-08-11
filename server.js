@@ -13,7 +13,7 @@ try {
   Object.assign(process.env, require('./.env'))
 } catch (err){
   console.error(err.message)
-  console.warn('Unable to load local env file. This file is not used in production, but needed to run app locally.')
+  console.warn('Unable to load local env file. This file is not used in production, but is needed to run app locally.')
 }
 
 console.info(`Starting server in mode: ${process.env.NODE_ENV || 'Unable to access process.env.NODE_ENV --> mode has not been set'}`)
