@@ -12,8 +12,8 @@ const serviceLoader = ( services ) => {
     })
     .catch( err => {
       console.warn('Failed to contact ' + service.name + ' at ' + service.URL)
-      console.error('error: ' + err.message)
       console.warn(service.name + ' is offline. Some functionality may be disabled.')
+      console.error('error: ' + err.message)
     })
   })
 }
