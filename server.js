@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
-const axios = require('axios')
 
 require('console-info')
 require('console-warn')
 require('console-error')
 
 const {syncAndSeed} = require('./db')
+const {serviceLoader} = require('./utils/serviceLoader')
 const PORT = process.env.PORT || 3000
 
 try {
@@ -35,17 +35,17 @@ app.listen(PORT, () => {
 
 syncAndSeed()
 
-axios.get(process.env.INVENTORY_SERVICE_URL || 'https://celery-store-inventory-service.herokuapp.com')
-  .then( response => {
-    if (response.data.response.results === 'pong'){
-      console.info('inventory-service is online')
-    } else {
-      throw new Error('Unable to contact inventory-service')
-    }
-  })
-  .catch( err => {
-    console.error(err.message)
-    console.warn('inventory-service is offline. Some functionality may be disabled.')
-  })
+if (process.env.NODE_ENV === 'development'){
+  serviceLoader([
+    {name: 'account service', URL: process.env.ACCOUNT_SERVICE_URL},
+    {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
+  ])
+} else {
+  console.info('Connecting to production services')
+  serviceLoader([
+    {name: 'account service', URL: 'https://celery-store-account-service.herokuapp.com'},
+    {name: 'inventory service', URL: 'https://celery-store-inventory-service.herokuapp.com'}
+  ])
+}
 
 module.exports =  { app }
