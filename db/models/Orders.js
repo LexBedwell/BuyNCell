@@ -16,6 +16,10 @@ const Orders = conn.define('order', {
       allowNull: false,
       defaultValue: false
   },
+  userId: {
+    type: Sequelize.BIGINT,
+    allowNull: false
+  },
   addressName: {
     type: Sequelize.STRING,
     allowNull: false,

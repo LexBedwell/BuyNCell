@@ -6,6 +6,7 @@ const {Op} = require('sequelize')
 
 const {models} = require('../../db/')
 const {sendConfirmationEmail} = require('../email/sendEmail')
+const {findUser, findOrCreateUser} = require('../../utils/services/accountService.js')
 
 router.get('/history', (req, res, next) => {
   const attr = {
@@ -84,9 +85,9 @@ router.put('/submit', async (req, res, next) => {
     let orderEmail
     let orderId = req.body.id
     if (!req.body.userId){
-      let searchUser = await models.Users.findOrCreate({ where: {email: req.body.email} })
+      let searchUser = await findOrCreateUser(req.body.email)
       await models.Orders.update({
-        userId: searchUser[0].id
+        userId: searchUser.id
       }, {
         where: {
           id: req.body.id
@@ -94,7 +95,7 @@ router.put('/submit', async (req, res, next) => {
       })
       orderEmail = req.body.email
     } else {
-      let searchUser = await models.Users.findByPk(req.body.userId)
+      let searchUser = await findUser(req.body.userId)
       orderEmail = searchUser.email
     }
     let inventoryServiceOrder = {}

@@ -9,14 +9,9 @@ const Images = require('./models/Images')
 const LineItems = require('./models/LineItems')
 const Orders = require('./models/Orders')
 const Products = require('./models/Products')
-const Reviews = require('./models/Reviews')
-const Users = require('./models/Users')
 
 LineItems.belongsTo(Products)
 Orders.hasMany(LineItems)
-Products.hasMany(Reviews)
-Users.hasMany(Reviews)
-Users.hasMany(Orders)
 Products.belongsToMany(Categories, { through: 'productscategories' })
 Categories.belongsToMany(Products, { through: 'productscategories' })
 
@@ -29,8 +24,7 @@ const syncAndSeed = async () => {
     const preProducts = [preCel, preChopCel, preMincCel]
     await regProducts.forEach( product => product.addCategories(reg))
     await preProducts.forEach( product => product.addCategories(pre))
-    const sampleUsers = await Promise.all(users.map( user => Users.create(user)))
-    const sampleOrders = await Promise.all(sampleUsers.map( user => Orders.create({userId: user.id, addressName: user.addressName, addressLine: user.addressLine, addressCity: user.addressCity, addressState: user.addressState, addressZip: user.addressZip})))
+    const sampleOrders = await Promise.all(users.map( user => Orders.create({userId: user.id, addressName: user.addressName, addressLine: user.addressLine, addressCity: user.addressCity, addressState: user.addressState, addressZip: user.addressZip})))
     await Promise.all(regProducts.concat(preProducts).map( product => LineItems.create({productId: product.id, orderId: sampleOrders[0].id})))
     console.info('Databse syncAndSeed completed')
   } catch (err) {
@@ -41,6 +35,6 @@ const syncAndSeed = async () => {
 
 module.exports = {
   models: {
-    Categories, Images, LineItems, Orders, Products, Reviews, Users
+    Categories, Images, LineItems, Orders, Products
   }, syncAndSeed
 }

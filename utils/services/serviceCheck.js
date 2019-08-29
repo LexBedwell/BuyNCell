@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-const serviceLoader = ( services ) => {
+const serviceCheck = ( services ) => {
   services.forEach( service => {
     axios.get(service.URL)
     .then( response => {
@@ -18,4 +18,4 @@ const serviceLoader = ( services ) => {
   })
 }
 
-module.exports = { serviceLoader }
+module.exports = { serviceCheck }
