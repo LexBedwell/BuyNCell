@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
     }
     res.send({id: user.id, email: user.email})
   } catch (err) {
-    console.error('Unable to authenticate user token: ', err.message)
+    console.info('Unable to authenticate user token: ', err.message)
     res.send({})
   }
 })

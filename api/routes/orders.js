@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const axios = require('axios')
 
 const {Op} = require('sequelize')
 
 const {models} = require('../../db/')
 const {sendConfirmationEmail} = require('../email/sendEmail')
 const {findUser, findOrCreateUser} = require('../../utils/services/accountService.js')
+const { sendInventoryServiceOrder } = require('../../utils/services/inventoryService.js')
 
 router.get('/history', (req, res, next) => {
   const attr = {
@@ -90,7 +90,7 @@ router.put('/submit', async (req, res, next) => {
         userId: searchUser.id
       }, {
         where: {
-          id: req.body.id
+          id: orderId
         }
       })
       orderEmail = req.body.email
@@ -100,8 +100,8 @@ router.put('/submit', async (req, res, next) => {
     }
     let inventoryServiceOrder = {}
     req.body.lineItems.forEach( elem => inventoryServiceOrder[elem.productId] = elem.quantity)
-    let inventoryServiceResponse = await axios.put(process.env.INVENTORY_SERVICE_URL + '/inventory', inventoryServiceOrder)
-    if (inventoryServiceResponse.data.processTransaction === true) {
+    let inventoryServiceResponse = await sendInventoryServiceOrder(inventoryServiceOrder)
+    if (inventoryServiceResponse.processTransaction === true) {
       req.body.lineItems.forEach(async lineItem => {
         await models.LineItems.update({
           quantity: lineItem.quantity
@@ -121,12 +121,12 @@ router.put('/submit', async (req, res, next) => {
           addressZip: req.body.addressZip
         }, {
         where: {
-          id: req.body.id
+          id: orderId
         }
       })
       sendConfirmationEmail(orderId, orderEmail)
     }
-    res.status(202).send(inventoryServiceResponse.data)
+    res.status(202).send(inventoryServiceResponse)
   } catch (err) {
     next(err)
   }
