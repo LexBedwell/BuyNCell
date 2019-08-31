@@ -1,5 +1,5 @@
 # Buy and Cell
-Fully functional e-commerce website selling celery. Utilizes [inventory-service](https://github.com/LexBedwell/inventory-service) to store and update product inventory quantities. 
+Fully functional e-commerce website selling celery. Utilizes [inventory-service](https://github.com/LexBedwell/inventory-service) to store and update product inventory quantities, and [account-service](https://github.com/LexBedwell/account-service) to store and update customer account information. 
 
 [Demo here.](https://celery-store.herokuapp.com)
 
