@@ -3,20 +3,20 @@ const router = express.Router()
 const axios = require('axios')
 const jwt = require('jwt-simple')
 
-const {models} = require('../../db')
+const {findUser, findOrCreateUser} = require('../../utils/services/accountService.js')
 
 router.get('/', async (req, res, next) => {
   try {
     const token = req.headers.authorization
     let decodedToken = jwt.decode(token, process.env.JWT_SECRET)
     let id = decodedToken.id
-    let user = await models.Users.findByPk(id)
+    let user = await findUser(id)
     if (!user){
       throw new Error('Bad authentication token.')
     }
     res.send({id: user.id, email: user.email})
   } catch (err) {
-    console.error('Unable to authenticate user token: ', err.message)
+    console.info('Unable to authenticate user token: ', err.message)
     res.send({})
   }
 })
@@ -32,20 +32,9 @@ router.get('/facebook/callback', async (req, res, next) => {
     let accessToken = response.data.access_token
     response = await axios.get(`https://graph.facebook.com/me?fields=email&access_token=${accessToken}`)
     let facebookData = response.data
-    let user = await models.Users.findOne({
-      where: {
-          email: facebookData.email
-      }
-    })
-    if (!user){
-      if (facebookData.email){
-        user = await models.Users.create({
-          email: facebookData.email,
-          isAdmin: false
-        })
-      } else {
-        return next(new Error('Facebook User Validation Failed.'))
-      }
+    let user = await findOrCreateUser(facebookData.email)
+    if (!user || user.error){
+      return next(new Error('Facebook User Validation Failed.'))
     }
     const token = jwt.encode({id: user.id}, process.env.JWT_SECRET)
     res.redirect(`/?token=${token}`)
@@ -54,14 +43,5 @@ router.get('/facebook/callback', async (req, res, next) => {
     next(err)
   }
 })
-
-//dev purposes only!
-if (process.env.NODE_ENV === 'development'){
-  router.get('/users', (req, res, next) => {
-    models.Users.findAll({})
-    .then((response) => res.send(response))
-    .catch(next)
-  })
-}
 
 module.exports = router

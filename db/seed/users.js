@@ -1,6 +1,6 @@
 module.exports = [
   {
-    email: 'lexbedwell@gmail.com',
+    id: 1,
     addressName: 'Alexander Bedwell',
     addressLine: '180 Park Row #3C',
     addressCity: 'New York',

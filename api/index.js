@@ -2,14 +2,14 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jwt-simple')
 
-const {models} = require('../db')
+const {findUser} = require('../utils/services/accountService.js')
 
 router.use(async (req, res, next) => {
   try {
     const token = req.headers.authorization
     let decodedToken = jwt.decode(token, process.env.JWT_SECRET)
     let id = decodedToken.id
-    req.user = await models.Users.findByPk(id)
+    req.user = await findUser(id)
     next()
   } catch (err) {
     next()
