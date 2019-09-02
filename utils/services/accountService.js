@@ -15,7 +15,7 @@ const findUser = async userId => {
 
 const findOrCreateUser = async email => {
     try {
-        let response = await axios.post(process.env.INVENTORY_SERVICE_URL + '/create', {email})
+        let response = await axios.post(process.env.ACCOUNT_SERVICE_URL + '/create', {email})
         return response.data
     } catch (err){
         console.error('Unable to find or create user with account-service:', err.message)
