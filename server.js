@@ -6,7 +6,7 @@ require('console-warn')
 require('console-error')
 
 const {syncAndSeed} = require('./db')
-const {serviceCheck} = require('./utils/services/serviceCheck')
+const {pingServices} = require('./utils/services/serviceCheck')
 const PORT = process.env.PORT || 3000
 
 try {
@@ -35,7 +35,7 @@ app.listen(PORT, () => {
 
 syncAndSeed()
 
-serviceCheck([
+pingServices([
   {name: 'account service', URL: process.env.ACCOUNT_SERVICE_URL},
   {name: 'inventory service', URL: process.env.INVENTORY_SERVICE_URL}
 ])
